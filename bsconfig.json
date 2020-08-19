@@ -1,0 +1,30 @@
+{
+  "name": "graphql-ppx-xml",
+  "reason": {
+    "react-jsx": 3
+  },
+  "sources": {
+    "dir": "src",
+    "subdirs": true
+  },
+
+  "bsc-flags": ["-bs-no-version-header", "-bs-super-errors", "-bs-g"],
+
+  "package-specs": [
+    {
+      "module": "commonjs",
+      "in-source": true
+    }
+  ],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "bs-dependencies": [
+    "reason-react",
+    "bs-fetch",
+    "@reasonml-community/graphql-ppx"
+  ],
+  "ppx-flags": [
+    "@reasonml-community/graphql-ppx/ppx"
+  ],
+  "refmt": 3
+}
