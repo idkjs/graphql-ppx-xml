@@ -3,8 +3,56 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
-var Query$GraphqlPpxXml = require("./Query.bs.js");
-var Decode$GraphqlPpxXml = require("./Decode.bs.js");
+
+var Raw = {};
+
+var query = "query   {\ndogs  {\nimageUrl  \n}\n\n}\n";
+
+function parse(value) {
+  var value$1 = value.dogs;
+  return {
+          dogs: value$1.map(function (value) {
+                return {
+                        imageUrl: value.imageUrl
+                      };
+              })
+        };
+}
+
+function serialize(value) {
+  var value$1 = value.dogs;
+  var dogs = value$1.map(function (value) {
+        var value$1 = value.imageUrl;
+        return {
+                imageUrl: value$1
+              };
+      });
+  return {
+          dogs: dogs
+        };
+}
+
+function serializeVariables(param) {
+  
+}
+
+function makeVariables(param) {
+  
+}
+
+function makeDefaultVariables(param) {
+  
+}
+
+var Query = {
+  Raw: Raw,
+  query: query,
+  parse: parse,
+  serialize: serialize,
+  serializeVariables: serializeVariables,
+  makeVariables: makeVariables,
+  makeDefaultVariables: makeDefaultVariables
+};
 
 function makeErrorJson(err) {
   var error = String(err);
@@ -15,12 +63,12 @@ function makeErrorJson(err) {
 
 function decoder(response) {
   var data = response.data;
-  return Query$GraphqlPpxXml.parse(data).dogs;
+  return parse(data).dogs;
 }
 
 var endpoint = "https://formidadog-ql.netlify.app/graphql?query=";
 
-var querystring = endpoint + Query$GraphqlPpxXml.query;
+var querystring = "https://formidadog-ql.netlify.app/graphql?query=query   {\ndogs  {\nimageUrl  \n}\n\n}\n";
 
 var imageStyle = {
   backgroundPosition: "center",
@@ -42,7 +90,7 @@ function FetchDogsGraphql(Props) {
           request.addEventListener("load", (function (param) {
                   return Curry._1(setState, (function (_previousState) {
                                 return {
-                                        _0: Decode$GraphqlPpxXml.data(JSON.parse(request.response)),
+                                        _0: decoder(JSON.parse(request.response)),
                                         [Symbol.for("name")]: "LoadedDogs"
                                       };
                               }));
@@ -96,6 +144,7 @@ function FetchDogsGraphql(Props) {
 
 var make = FetchDogsGraphql;
 
+exports.Query = Query;
 exports.makeErrorJson = makeErrorJson;
 exports.decoder = decoder;
 exports.endpoint = endpoint;

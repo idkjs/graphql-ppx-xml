@@ -24,15 +24,27 @@
 
 // dependencies
 // [`@reasonml-community/graphql-ppx`](https://beta.graphql-ppx.com/docs/getting-started)
+module Query = {
+[%graphql
+  {|
+    {
+      dogs {
+        imageUrl
+      }
+    }
+|}
+];
+
+}
 let makeErrorJson = err => {
   let error = Js.String.make(err);
   let json = Js.Dict.empty();
   Js.Dict.set(json, "error", Js.Json.string(error));
   Js.Json.object_(json);
 };
-type dogs = array(GraphqlPpxXml.Query.t_dogs);
+type dogs = array(Query.t_dogs);
 type decoder = Js.Json.t => dogs;
-let decoder = (response: Js.Json.t) => {
+let decoder = (response) => {
   // get data object off of response
   let data = Obj.magic(response)##data;
 
@@ -86,7 +98,7 @@ let make = () => {
     let request = makeXMLHttpRequest();
     request->addEventListener("load", () => {
       setState(_previousState =>
-        LoadedDogs(request->response->parseData->Decode.data)
+        LoadedDogs(request->response->parseData->decoder)
       )
     });
     request->addEventListener("error", () => {

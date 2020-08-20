@@ -1,9 +1,0 @@
-[%graphql
-  {|
-    {
-      dogs {
-        imageUrl
-      }
-    }
-|}
-];

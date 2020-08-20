@@ -34,7 +34,7 @@ ReactDOMRe.render(
 );
 
 ReactDOMRe.render(
-  <NoPromisesTweet />,
+  <FetchedDogsNoPromises />,
   makeContainer("Dog Pictures Without Promises"),
 );
 

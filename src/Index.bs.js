@@ -3,8 +3,8 @@
 var React = require("react");
 var ReactDom = require("react-dom");
 var ExampleStyles$GraphqlPpxXml = require("./ExampleStyles.bs.js");
-var NoPromisesTweet$GraphqlPpxXml = require("./NoPromisesTweet.bs.js");
 var FetchDogsGraphql$GraphqlPpxXml = require("./FetchDogsGraphql.bs.js");
+var FetchedDogsNoPromises$GraphqlPpxXml = require("./FetchedDogsNoPromises.bs.js");
 
 var style = document.createElement("style");
 
@@ -28,7 +28,7 @@ function makeContainer(text) {
 
 ReactDom.render(React.createElement(FetchDogsGraphql$GraphqlPpxXml.make, {}), makeContainer("https://formidadog-ql.netlify.app/graphql"));
 
-ReactDom.render(React.createElement(NoPromisesTweet$GraphqlPpxXml.make, {}), makeContainer("Dog Pictures Without Promises"));
+ReactDom.render(React.createElement(FetchedDogsNoPromises$GraphqlPpxXml.make, {}), makeContainer("Dog Pictures Without Promises"));
 
 exports.style = style;
 exports.makeContainer = makeContainer;
