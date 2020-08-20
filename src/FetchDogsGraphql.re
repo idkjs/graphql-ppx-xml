@@ -21,46 +21,25 @@
 // oReq.addEventListener("load", reqListener);
 // oReq.open("GET", "http://www.example.org/example.txt");
 // oReq.send();
+
+// dependencies
+// [`@reasonml-community/graphql-ppx`](https://beta.graphql-ppx.com/docs/getting-started)
 let makeErrorJson = err => {
   let error = Js.String.make(err);
   let json = Js.Dict.empty();
   Js.Dict.set(json, "error", Js.Json.string(error));
   Js.Json.object_(json);
 };
-type decoder = Js.Json.t => EpicReducer.Query.t_user;
+type dogs = array(GraphqlPpxXml.Query.t_dogs);
+type decoder = Js.Json.t => dogs;
 let decoder = (response: Js.Json.t) => {
+  // get data object off of response
   let data = Obj.magic(response)##data;
 
-  let typedResponse = Query.unsafe_fromJson(data);
-  let parsedData = Query.parse(typedResponse);
-  let username =
-    switch (parsedData) {
-    | {user: Some({username})} => username
-    | _ => Some("Anonymous")
-    };
-  let id =
-    switch (parsedData) {
-    | {user: Some({id})} => id
-    | _ => None
-    };
-  let email =
-    switch (parsedData) {
-    | {user: Some({email})} => email
-    | _ => None
-    };
-  let phone =
-    switch (parsedData) {
-    | {user: Some({phone})} => phone
-    | _ => None
-    };
-  let website =
-    switch (parsedData) {
-    | {user: Some({website})} => website
-    | _ => None
-    };
-  let user: Query.t_user = {username, id, email, phone, website};
+  let typedDogs: Query.Raw.t = Query.unsafe_fromJson(data);
+  let dogs = Query.parse(typedDogs).dogs;
 
-  user;
+  dogs;
 };
 type request;
 type response;
@@ -74,20 +53,18 @@ external addEventListener: (request, string, unit => unit) => unit =
 [@bs.send] external abort: request => unit = "abort";
 
 [@bs.scope "JSON"] [@bs.val]
-external parseResponse: response => {. "message": array(string)} = "parse";
-[@bs.scope "JSON"] [@bs.val]
 external parseError: response => {. "message": string} = "parse";
 [@bs.scope "JSON"] [@bs.val] external parseData: response => decoder = "parse";
 
 // ================ real parallel example to that linked file now
-
+let endpoint = "https://formidadog-ql.netlify.app/graphql?query=";
 // we can use the query string because we are using `application/graphql` as content type.
-let qs = API.gql ++ Query.query; // ++ "sss";
-Js.log(qs);
+let querystring = endpoint ++ Query.query; // ++ "sss";
+
 type state =
   | LoadingDogs
   | ErrorFetchingDogs
-  | LoadedDogs(Query.t_user);
+  | LoadedDogs(dogs);
 
 let imageStyle =
   ReactDOMRe.Style.make(
@@ -117,7 +94,7 @@ let make = () => {
       Js.log2("An error occurred!", error);
       setState(_previousState => ErrorFetchingDogs);
     });
-    request->open_("Post", qs);
+    request->open_("Post", querystring);
     request->send;
 
     // the return value is called by React's useEffect when the component unmounts
@@ -135,12 +112,26 @@ let make = () => {
     {switch (state) {
      | ErrorFetchingDogs => React.string("An error occurred!")
      | LoadingDogs => React.string("Loading...")
-     | LoadedDogs(user) =>
-       //  Js.log2("user", user);
-       switch (user.username) {
-       | Some(name) => React.string(name)
-       | None => React.string("Anonymous")
-       }
+     | LoadedDogs(dogs) =>
+      //  this API doesn't let you limit number of dogs so we are getting the first 3
+       Js.Array.slice(~start=0,~end_= 3,dogs)
+       ->Belt.Array.mapWithIndex((i, dog) => {
+           let dog = dog.imageUrl;
+           let imageStyle =
+             ReactDOMRe.Style.make(
+               ~height="120px",
+               ~width="100%",
+               ~marginRight=i === Js.Array.length(dogs) - 1 ? "0px" : "8px",
+               ~borderRadius="8px",
+               ~boxShadow="0px 4px 16px rgb(200, 200, 200)",
+               ~backgroundSize="cover",
+               ~backgroundImage={j|url($dog)|j},
+               ~backgroundPosition="center",
+               (),
+             );
+           <div key=dog style=imageStyle />;
+         })
+       ->React.array;
      }}
   </div>;
 };

@@ -29,13 +29,13 @@ let makeContainer = text => {
 
 
 ReactDOMRe.render(
-  <NoPromisesTweetGql />,
-  makeContainer("NoPromisesTweetGql"),
+  <FetchDogsGraphql />,
+  makeContainer("https://formidadog-ql.netlify.app/graphql"),
 );
 
 ReactDOMRe.render(
   <NoPromisesTweet />,
-  makeContainer("NoPromisesTweet Dog Pictures"),
+  makeContainer("Dog Pictures Without Promises"),
 );
 
 

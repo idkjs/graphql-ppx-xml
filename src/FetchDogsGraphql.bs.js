@@ -2,9 +2,9 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
-var API$EpicReducer = require("./API.bs.js");
-var Query$EpicReducer = require("./Query.bs.js");
-var Decode$EpicReducer = require("./Decode.bs.js");
+var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
+var Query$GraphqlPpxXml = require("./Query.bs.js");
+var Decode$GraphqlPpxXml = require("./Decode.bs.js");
 
 function makeErrorJson(err) {
   var error = String(err);
@@ -15,29 +15,12 @@ function makeErrorJson(err) {
 
 function decoder(response) {
   var data = response.data;
-  var parsedData = Query$EpicReducer.parse(data);
-  var match = parsedData.user;
-  var username = match !== undefined ? match.username : "Anonymous";
-  var match$1 = parsedData.user;
-  var id = match$1 !== undefined ? match$1.id : undefined;
-  var match$2 = parsedData.user;
-  var email = match$2 !== undefined ? match$2.email : undefined;
-  var match$3 = parsedData.user;
-  var phone = match$3 !== undefined ? match$3.phone : undefined;
-  var match$4 = parsedData.user;
-  var website = match$4 !== undefined ? match$4.website : undefined;
-  return {
-          id: id,
-          username: username,
-          email: email,
-          phone: phone,
-          website: website
-        };
+  return Query$GraphqlPpxXml.parse(data).dogs;
 }
 
-var qs = API$EpicReducer.gql + Query$EpicReducer.query;
+var endpoint = "https://formidadog-ql.netlify.app/graphql?query=";
 
-console.log(qs);
+var querystring = endpoint + Query$GraphqlPpxXml.query;
 
 var imageStyle = {
   backgroundPosition: "center",
@@ -48,7 +31,7 @@ var imageStyle = {
   boxShadow: "0px 4px 16px rgb(200, 200, 200)"
 };
 
-function NoPromisesTweetGql(Props) {
+function FetchDogsGraphql(Props) {
   var match = React.useState(function () {
         return /* LoadingDogs */0;
       });
@@ -59,7 +42,7 @@ function NoPromisesTweetGql(Props) {
           request.addEventListener("load", (function (param) {
                   return Curry._1(setState, (function (_previousState) {
                                 return {
-                                        _0: Decode$EpicReducer.data(JSON.parse(request.response)),
+                                        _0: Decode$GraphqlPpxXml.data(JSON.parse(request.response)),
                                         [Symbol.for("name")]: "LoadedDogs"
                                       };
                               }));
@@ -71,7 +54,7 @@ function NoPromisesTweetGql(Props) {
                                 return /* ErrorFetchingDogs */1;
                               }));
                 }));
-          request.open("Post", qs);
+          request.open("Post", querystring);
           request.send();
           return (function (param) {
                     request.abort();
@@ -82,8 +65,24 @@ function NoPromisesTweetGql(Props) {
   if (typeof state === "number") {
     tmp = state !== 0 ? "An error occurred!" : "Loading...";
   } else {
-    var name = state._0.username;
-    tmp = name !== undefined ? name : "Anonymous";
+    var dogs = state._0;
+    tmp = Belt_Array.mapWithIndex(dogs.slice(0, 3), (function (i, dog) {
+            var dog$1 = dog.imageUrl;
+            var imageStyle = {
+              backgroundImage: "url(" + dog$1 + ")",
+              backgroundPosition: "center",
+              height: "120px",
+              marginRight: i === (dogs.length - 1 | 0) ? "0px" : "8px",
+              width: "100%",
+              backgroundSize: "cover",
+              borderRadius: "8px",
+              boxShadow: "0px 4px 16px rgb(200, 200, 200)"
+            };
+            return React.createElement("div", {
+                        key: dog$1,
+                        style: imageStyle
+                      });
+          }));
   }
   return React.createElement("div", {
               style: {
@@ -95,11 +94,12 @@ function NoPromisesTweetGql(Props) {
             }, tmp);
 }
 
-var make = NoPromisesTweetGql;
+var make = FetchDogsGraphql;
 
 exports.makeErrorJson = makeErrorJson;
 exports.decoder = decoder;
-exports.qs = qs;
+exports.endpoint = endpoint;
+exports.querystring = querystring;
 exports.imageStyle = imageStyle;
 exports.make = make;
-/*  Not a pure module */
+/* react Not a pure module */

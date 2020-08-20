@@ -24,13 +24,16 @@
 type request;
 type response;
 [@bs.new] external makeXMLHttpRequest: unit => request = "XMLHttpRequest";
-[@bs.send] external addEventListener: (request, string, unit => unit) => unit = "addEventListener";
+[@bs.send]
+external addEventListener: (request, string, unit => unit) => unit =
+  "addEventListener";
 [@bs.get] external response: request => response = "response";
 [@bs.send] external open_: (request, string, string) => unit = "open";
 [@bs.send] external send: request => unit = "send";
 [@bs.send] external abort: request => unit = "abort";
 
-[@bs.scope "JSON"][@bs.val] external parseResponse: response => {. "message": array(string)} = "parse";
+[@bs.scope "JSON"] [@bs.val]
+external parseResponse: response => {. "message": array(string)} = "parse";
 
 // ================ real parallel example to that linked file now
 
@@ -46,20 +49,20 @@ let make = () => {
   // Notice that instead of `useEffect`, we have `useEffect0`. See
   // reasonml.github.io/reason-react/docs/en/components#hooks for more info
   React.useEffect0(() => {
-    let request = makeXMLHttpRequest()
+    let request = makeXMLHttpRequest();
     request->addEventListener("load", () => {
-      setState(_previousState => LoadedDogs((request->response->parseResponse)##message));
-    })
+      setState(_previousState =>
+        LoadedDogs(request->response->parseResponse##message)
+      )
+    });
     request->addEventListener("error", () => {
-      setState(_previousState => ErrorFetchingDogs);
-    })
+      setState(_previousState => ErrorFetchingDogs)
+    });
     request->open_("GET", "https://dog.ceo/api/breeds/image/random/3");
-    request->send
+    request->send;
 
     // the return value is called by React's useEffect when the component unmounts
-    Some(() => {
-      request->abort
-    })
+    Some(() => {request->abort});
   });
 
   <div

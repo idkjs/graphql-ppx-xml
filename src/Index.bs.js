@@ -2,15 +2,15 @@
 
 var React = require("react");
 var ReactDom = require("react-dom");
-var ExampleStyles$EpicReducer = require("./ExampleStyles.bs.js");
-var NoPromisesTweet$EpicReducer = require("./NoPromisesTweet.bs.js");
-var NoPromisesTweetGql$EpicReducer = require("./NoPromisesTweetGql.bs.js");
+var ExampleStyles$GraphqlPpxXml = require("./ExampleStyles.bs.js");
+var NoPromisesTweet$GraphqlPpxXml = require("./NoPromisesTweet.bs.js");
+var FetchDogsGraphql$GraphqlPpxXml = require("./FetchDogsGraphql.bs.js");
 
 var style = document.createElement("style");
 
 document.head.appendChild(style);
 
-style.innerHTML = ExampleStyles$EpicReducer.style;
+style.innerHTML = ExampleStyles$GraphqlPpxXml.style;
 
 function makeContainer(text) {
   var container = document.createElement("div");
@@ -26,9 +26,9 @@ function makeContainer(text) {
   return content;
 }
 
-ReactDom.render(React.createElement(NoPromisesTweetGql$EpicReducer.make, {}), makeContainer("NoPromisesTweetGql"));
+ReactDom.render(React.createElement(FetchDogsGraphql$GraphqlPpxXml.make, {}), makeContainer("https://formidadog-ql.netlify.app/graphql"));
 
-ReactDom.render(React.createElement(NoPromisesTweet$EpicReducer.make, {}), makeContainer("NoPromisesTweet Dog Pictures"));
+ReactDom.render(React.createElement(NoPromisesTweet$GraphqlPpxXml.make, {}), makeContainer("Dog Pictures Without Promises"));
 
 exports.style = style;
 exports.makeContainer = makeContainer;

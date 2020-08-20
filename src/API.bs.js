@@ -1,10 +1,7 @@
 'use strict';
 
 
-var rest = "https://jsonplaceholder.typicode.com/";
+var endpoint = "https://formidadog-ql.netlify.app/graphql?query=";
 
-var gql = "https://json-placeholder-graphql.herokuapp.com/graphql?query=";
-
-exports.rest = rest;
-exports.gql = gql;
+exports.endpoint = endpoint;
 /* No side effect */
