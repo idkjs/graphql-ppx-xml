@@ -26,7 +26,23 @@ let makeContainer = text => {
 
   content;
 };
-
+Warp.Method.get(DogsUrl.url)
+// ->Warp.ResponseType.setJson
+// ->Warp.QueryString.set([
+//     ("firstname", "Max"),
+//     ("lastname", "Mustermann"),
+//     ("username", "max"),
+//     ("email", "max@mustermann.de"),
+//   ])
+// ->Warp.Header.add("authorization", "Bearer 123")
+->Warp.Event.onLoad(response => {
+    switch (response) {
+    | Belt.Result.Ok(Some(data)) => Js.Console.log(data)
+    | Belt.Result.Ok(None) => Js.Console.info("No Response!")
+    | Belt.Result.Error(message) => Js.Console.error(message)
+    }
+  })
+->Warp.send|>ignore;
 
 ReactDOMRe.render(
   <FetchDogsGraphql />,
@@ -36,6 +52,10 @@ ReactDOMRe.render(
 ReactDOMRe.render(
   <FetchedDogsNoPromises />,
   makeContainer("Dog Pictures Without Promises"),
+);
+ReactDOMRe.render(
+  <FetchedDogsWonka />,
+  makeContainer("Dog Pictures With Wonka"),
 );
 
 

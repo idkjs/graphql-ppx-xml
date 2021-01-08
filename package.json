@@ -7,7 +7,8 @@
     "clean": "bsb -clean-world",
     "server": "moduleserve ./ --port 8000",
     "schema": "npx get-graphql-schema https://formidadog-ql.netlify.app/graphql -j > graphql_schema.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package"
   },
   "keywords": [
     "BuckleScript",
@@ -17,14 +18,27 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@glennsl/bs-json": "5.0.2",
+    "@space-labs/warp": "idkjs/warp.git#node",
     "bs-fetch": "^0.6.2",
+    "bs-node-fetch": "^0.3.0",
+    "bs-webapi": "^0.19.1",
+    "bsdoc": "^6.0.4-alpha",
+    "gentype": "^3.42.0",
+    "isomorphic-fetch": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "patch-package": "*",
+    "postinstall-postinstall": "^2.1.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "reason-react": ">=0.7.1"
+    "reason-promise": "1.0.2",
+    "reason-react": ">=0.9.1",
+    "wonka": "5.0.0-rc.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
-    "@reasonml-community/graphql-ppx": "^1.0.1",
-    "bs-platform": "^8.2.0",
-    "moduleserve": "^0.9.0"
+    "@reasonml-community/graphql-ppx": "^1.0.2",
+    "bs-platform": "^8.4.2",
+    "moduleserve": "^0.9.1"
   }
 }

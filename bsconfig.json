@@ -8,8 +8,15 @@
     "subdirs": true
   },
 
-  "bsc-flags": ["-bs-no-version-header", "-bs-super-errors", "-bs-g"],
-
+  "bsc-flags": [ "-bs-no-version-header", "-bs-super-errors", "-bs-g" ],
+  "gentypeconfig": {
+    "language": "untyped",
+    "shims": {},
+    "debug": {
+      "all": false,
+      "basic": false
+    }
+  },
   "package-specs": [
     {
       "module": "commonjs",
@@ -20,11 +27,14 @@
   "namespace": true,
   "bs-dependencies": [
     "reason-react",
+    "reason-promise",
     "bs-fetch",
+    "@space-labs/warp",
+    "bs-node-fetch",
+    "@glennsl/bs-json",
+    "wonka",
     "@reasonml-community/graphql-ppx"
   ],
-  "ppx-flags": [
-    "@reasonml-community/graphql-ppx/ppx"
-  ],
+  "ppx-flags": [ "@reasonml-community/graphql-ppx/ppx" ],
   "refmt": 3
 }
