@@ -1,3 +1,17 @@
+diff --git a/node_modules/bs-node-fetch/.merlin b/node_modules/bs-node-fetch/.merlin
+new file mode 100644
+index 0000000..4620d95
+--- /dev/null
++++ b/node_modules/bs-node-fetch/.merlin
+@@ -0,0 +1,8 @@
++####{BSB GENERATED: NO EDIT
++FLG -ppx '/Users/mandalarian/Downloads/graphql-ppx-xml/node_modules/bs-platform/darwin/bsc.exe -as-ppx '
++S /Users/mandalarian/Downloads/graphql-ppx-xml/node_modules/bs-platform/lib/ocaml
++B /Users/mandalarian/Downloads/graphql-ppx-xml/node_modules/bs-platform/lib/ocaml
++FLG -w +a-4-9-20-40-41-42-50-61-102
++S src
++B lib/bs/src
++####BSB GENERATED: NO EDIT}
 diff --git a/node_modules/bs-node-fetch/examples/examples.ml b/node_modules/bs-node-fetch/examples/examples.ml
 deleted file mode 100644
 index 67388c8..0000000
@@ -27,11 +41,11 @@ index 67388c8..0000000
 -  )
 diff --git a/node_modules/bs-node-fetch/examples/examples.re b/node_modules/bs-node-fetch/examples/examples.re
 new file mode 100644
-index 0000000..2de05ff
+index 0000000..dbe365a
 --- /dev/null
 +++ b/node_modules/bs-node-fetch/examples/examples.re
 @@ -0,0 +1,20 @@
-+open Bs_node_fetch;
++open BsNodeFetch;
 +
 +module Option = {
 +  let unwrapUnsafely =
@@ -44,13 +58,2356 @@ index 0000000..2de05ff
 +  fetch("https://dog.ceo/api/breeds/list/all")
 +  |> then_(Response.text)
 +  |> then_((text) => print_endline(text) |> resolve)
-+);
++)|>ignore;
 +
 +Js.Promise.(
 +  fetchWithInit("https://dog.ceo/api/breeds/list/all", RequestInit.make(~method_=Post, ()))
 +  |> then_(Response.text)
 +  |> then_((text) => print_endline(text) |> resolve)
-+);
++)|>ignore;
+diff --git a/node_modules/bs-node-fetch/lib/bs/.bsbuild b/node_modules/bs-node-fetch/lib/bs/.bsbuild
+new file mode 100644
+index 0000000..b02483f
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/bs/.bsbuild
+@@ -0,0 +1,5 @@
++1
++BsNodeFetch
++src	
++1
++0
+diff --git a/node_modules/bs-node-fetch/lib/bs/.bsdeps b/node_modules/bs-node-fetch/lib/bs/.bsdeps
+new file mode 100644
+index 0000000..058a8d7
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/bs/.bsdeps
+@@ -0,0 +1,5 @@
++8.4.2
++/Users/mandalarian/Downloads/graphql-ppx-xml/node_modules/bs-node-fetch
++1
++bsconfig.json	0x1.7fe317ba5b22dp+30
++src	0x1.7fe31de64352ap+30
+diff --git a/node_modules/bs-node-fetch/lib/bs/.compiler.log b/node_modules/bs-node-fetch/lib/bs/.compiler.log
+new file mode 100644
+index 0000000..7957a08
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/bs/.compiler.log
+@@ -0,0 +1,2 @@
++#Start(1610139516466)
++#Done(1610139516689)
+diff --git a/node_modules/bs-node-fetch/lib/bs/.ninja_log b/node_modules/bs-node-fetch/lib/bs/.ninja_log
+new file mode 100644
+index 0000000..d62c32f
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/bs/.ninja_log
+@@ -0,0 +1,7 @@
++# ninja log v6
++2	71	1610139516535350089	src/BsNodeFetch.iast	c018d0f10ad87781
++0	83	1610139516540822396	src/BsNodeFetch.ast	12a7cbf5f7591152
++83	99	1610139516565433156	src/BsNodeFetch.d	770172c0938b9257
++100	145	1610139516606155542	src/BsNodeFetch.cmi	ad5bc9c2f806ae94
++145	222	1610139516683804754	src/BsNodeFetch.cmj	a1bf8da56a80e582
++145	222	1610139516683804754	../../src/BsNodeFetch.bs.js	a1bf8da56a80e582
+diff --git a/node_modules/bs-node-fetch/lib/bs/build.ninja b/node_modules/bs-node-fetch/lib/bs/build.ninja
+new file mode 100644
+index 0000000..319e504
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/bs/build.ninja
+@@ -0,0 +1,19 @@
++rescript = 1
++rule astj
++  command = /Users/mandalarian/Downloads/graphql-ppx-xml/node_modules/bs-platform/darwin/bsc.exe  -w a -bs-v 8.4.2 -bs-no-version-header -bs-super-errors -absname -bs-ast -o $out $i
++o src/BsNodeFetch.ast : astj ../../src/BsNodeFetch.re
++rule deps
++  command = /Users/mandalarian/Downloads/graphql-ppx-xml/node_modules/bs-platform/darwin/bsb_helper.exe -hash 81793a4a28d23aa5738a76fedca63e8f $in
++  restat = 1
++o src/BsNodeFetch.d : deps src/BsNodeFetch.ast src/BsNodeFetch.iast
++o src/BsNodeFetch.iast : astj ../../src/BsNodeFetch.rei
++rule mi
++  command = /Users/mandalarian/Downloads/graphql-ppx-xml/node_modules/bs-platform/darwin/bsc.exe -I src -bs-no-version-header -bs-super-errors  -w a $i
++  dyndep = 1
++  restat = 1
++o src/BsNodeFetch.cmi : mi src/BsNodeFetch.iast
++rule mj
++  command = /Users/mandalarian/Downloads/graphql-ppx-xml/node_modules/bs-platform/darwin/bsc.exe -bs-read-cmi -I src -bs-no-version-header -bs-super-errors  -w a -bs-package-name bs-node-fetch -bs-package-output commonjs:$in_d:.bs.js $i
++  dyndep = 1
++  restat = 1
++o src/BsNodeFetch.cmj ../../src/BsNodeFetch.bs.js : mj src/BsNodeFetch.ast src/BsNodeFetch.cmi
+diff --git a/node_modules/bs-node-fetch/lib/bs/install.ninja b/node_modules/bs-node-fetch/lib/bs/install.ninja
+new file mode 100644
+index 0000000..797980d
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/bs/install.ninja
+@@ -0,0 +1,12 @@
++rescript = 1
++rule cp
++  command = cp $i $out
++rule touch
++ command = touch $out
++o BsNodeFetch.cmi : cp ../bs/src/BsNodeFetch.cmi
++o BsNodeFetch.cmj : cp ../bs/src/BsNodeFetch.cmj
++o BsNodeFetch.cmt : cp ../bs/src/BsNodeFetch.cmt
++o BsNodeFetch.re : cp ../../src/BsNodeFetch.re
++o BsNodeFetch.rei : cp ../../src/BsNodeFetch.rei
++o BsNodeFetch.cmti : cp ../bs/src/BsNodeFetch.cmti
++build install.stamp : touch BsNodeFetch.cmi BsNodeFetch.cmj 
+diff --git a/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.ast b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.ast
+new file mode 100644
+index 0000000..49f8a84
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.ast differ
+diff --git a/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmi b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmi
+new file mode 100644
+index 0000000..c05d160
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmi differ
+diff --git a/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmj b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmj
+new file mode 100644
+index 0000000..f328c4c
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmj differ
+diff --git a/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmt b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmt
+new file mode 100644
+index 0000000..90aaa37
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmt differ
+diff --git a/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmti b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmti
+new file mode 100644
+index 0000000..9c41e6c
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.cmti differ
+diff --git a/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.d b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.d
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.iast b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.iast
+new file mode 100644
+index 0000000..7cdb43c
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/bs/src/BsNodeFetch.iast differ
+diff --git a/node_modules/bs-node-fetch/lib/js/examples/examples.js b/node_modules/bs-node-fetch/lib/js/examples/examples.js
+deleted file mode 100644
+index 075e6fd..0000000
+--- a/node_modules/bs-node-fetch/lib/js/examples/examples.js
++++ /dev/null
+@@ -1,34 +0,0 @@
+-'use strict';
+-
+-var NodeFetch = require("node-fetch");
+-var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
+-var Bs_node_fetch = require("../src/bs_node_fetch.js");
+-var Caml_builtin_exceptions = require("bs-platform/lib/js/caml_builtin_exceptions.js");
+-
+-function unwrapUnsafely(param) {
+-  if (param !== undefined) {
+-    return Js_primitive.valFromOption(param);
+-  } else {
+-    throw [
+-          Caml_builtin_exceptions.invalid_argument,
+-          "unwrapUnsafely called on None"
+-        ];
+-  }
+-}
+-
+-var Option = /* module */[/* unwrapUnsafely */unwrapUnsafely];
+-
+-NodeFetch.default("https://dog.ceo/api/breeds/list/all").then((function (prim) {
+-          return prim.text();
+-        })).then((function (text) {
+-        return Promise.resolve((console.log(text), /* () */0));
+-      }));
+-
+-NodeFetch.default("https://dog.ceo/api/breeds/list/all", Bs_node_fetch.RequestInit[/* make */0](/* Post */2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
+-          return prim.text();
+-        })).then((function (text) {
+-        return Promise.resolve((console.log(text), /* () */0));
+-      }));
+-
+-exports.Option = Option;
+-/*  Not a pure module */
+diff --git a/node_modules/bs-node-fetch/lib/js/src/bs_node_fetch.js b/node_modules/bs-node-fetch/lib/js/src/bs_node_fetch.js
+deleted file mode 100644
+index aae03e0..0000000
+--- a/node_modules/bs-node-fetch/lib/js/src/bs_node_fetch.js
++++ /dev/null
+@@ -1,403 +0,0 @@
+-'use strict';
+-
+-var Curry = require("bs-platform/lib/js/curry.js");
+-var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
+-var Caml_builtin_exceptions = require("bs-platform/lib/js/caml_builtin_exceptions.js");
+-
+-function encodeRequestMethod(param) {
+-  if (typeof param === "number") {
+-    switch (param) {
+-      case 0 : 
+-          return "GET";
+-      case 1 : 
+-          return "HEAD";
+-      case 2 : 
+-          return "POST";
+-      case 3 : 
+-          return "PUT";
+-      case 4 : 
+-          return "DELETE";
+-      case 5 : 
+-          return "CONNECT";
+-      case 6 : 
+-          return "OPTIONS";
+-      case 7 : 
+-          return "TRACE";
+-      case 8 : 
+-          return "PATCH";
+-      
+-    }
+-  } else {
+-    return param[0];
+-  }
+-}
+-
+-function encodeReferrerPolicy(param) {
+-  switch (param) {
+-    case 0 : 
+-        return "";
+-    case 1 : 
+-        return "no-referrer";
+-    case 2 : 
+-        return "no-referrer-when-downgrade";
+-    case 3 : 
+-        return "same-origin";
+-    case 4 : 
+-        return "origin";
+-    case 5 : 
+-        return "strict-origin";
+-    case 6 : 
+-        return "origin-when-cross-origin";
+-    case 7 : 
+-        return "strict-origin-when-cross-origin";
+-    case 8 : 
+-        return "unsafe-url";
+-    
+-  }
+-}
+-
+-function encodeRequestMode(param) {
+-  switch (param) {
+-    case 0 : 
+-        return "navigate";
+-    case 1 : 
+-        return "same-origin";
+-    case 2 : 
+-        return "no-cors";
+-    case 3 : 
+-        return "cors";
+-    
+-  }
+-}
+-
+-function encodeRequestCredentials(param) {
+-  switch (param) {
+-    case 0 : 
+-        return "omit";
+-    case 1 : 
+-        return "same-origin";
+-    case 2 : 
+-        return "include";
+-    
+-  }
+-}
+-
+-function encodeRequestCache(param) {
+-  switch (param) {
+-    case 0 : 
+-        return "default";
+-    case 1 : 
+-        return "no-store";
+-    case 2 : 
+-        return "reload";
+-    case 3 : 
+-        return "no-cache";
+-    case 4 : 
+-        return "force-cache";
+-    case 5 : 
+-        return "only-if-cached";
+-    
+-  }
+-}
+-
+-function encodeRequestRedirect(param) {
+-  switch (param) {
+-    case 0 : 
+-        return "follow";
+-    case 1 : 
+-        return "error";
+-    case 2 : 
+-        return "manual";
+-    
+-  }
+-}
+-
+-var HeadersInit = /* module */[];
+-
+-var Headers = /* module */[];
+-
+-var BodyInit = /* module */[];
+-
+-function map(f, param) {
+-  if (param !== undefined) {
+-    return Js_primitive.some(Curry._1(f, Js_primitive.valFromOption(param)));
+-  }
+-  
+-}
+-
+-function make(method_, headers, body, referrer, $staropt$star, mode, credentials, cache, redirect, $staropt$star$1, keepalive, timeout) {
+-  var referrerPolicy = $staropt$star !== undefined ? $staropt$star : /* None */0;
+-  var integrity = $staropt$star$1 !== undefined ? $staropt$star$1 : "";
+-  var partial_arg = integrity;
+-  var partial_arg$1 = map(encodeRequestRedirect, redirect);
+-  var partial_arg$2 = map(encodeRequestCache, cache);
+-  var partial_arg$3 = map(encodeRequestCredentials, credentials);
+-  var partial_arg$4 = map(encodeRequestMode, mode);
+-  var partial_arg$5 = encodeReferrerPolicy(referrerPolicy);
+-  var partial_arg$6 = map(encodeRequestMethod, method_);
+-  return (function () {
+-      var tmp = { };
+-      if (partial_arg$6 !== undefined) {
+-        tmp.method = Js_primitive.valFromOption(partial_arg$6);
+-      }
+-      if (headers !== undefined) {
+-        tmp.headers = Js_primitive.valFromOption(headers);
+-      }
+-      if (body !== undefined) {
+-        tmp.body = Js_primitive.valFromOption(body);
+-      }
+-      if (referrer !== undefined) {
+-        tmp.referrer = Js_primitive.valFromOption(referrer);
+-      }
+-      if (partial_arg$5 !== undefined) {
+-        tmp.referrerPolicy = Js_primitive.valFromOption(partial_arg$5);
+-      }
+-      if (partial_arg$4 !== undefined) {
+-        tmp.mode = Js_primitive.valFromOption(partial_arg$4);
+-      }
+-      if (partial_arg$3 !== undefined) {
+-        tmp.credentials = Js_primitive.valFromOption(partial_arg$3);
+-      }
+-      if (partial_arg$2 !== undefined) {
+-        tmp.cache = Js_primitive.valFromOption(partial_arg$2);
+-      }
+-      if (partial_arg$1 !== undefined) {
+-        tmp.redirect = Js_primitive.valFromOption(partial_arg$1);
+-      }
+-      if (partial_arg !== undefined) {
+-        tmp.integrity = Js_primitive.valFromOption(partial_arg);
+-      }
+-      if (keepalive !== undefined) {
+-        tmp.keepalive = Js_primitive.valFromOption(keepalive);
+-      }
+-      if (timeout !== undefined) {
+-        tmp.timeout = Js_primitive.valFromOption(timeout);
+-      }
+-      return tmp;
+-    });
+-}
+-
+-function method_(self) {
+-  var method_$1 = self.method;
+-  switch (method_$1) {
+-    case "CONNECT" : 
+-        return /* Connect */5;
+-    case "DELETE" : 
+-        return /* Delete */4;
+-    case "GET" : 
+-        return /* Get */0;
+-    case "HEAD" : 
+-        return /* Head */1;
+-    case "OPTIONS" : 
+-        return /* Options */6;
+-    case "PATCH" : 
+-        return /* Patch */8;
+-    case "POST" : 
+-        return /* Post */2;
+-    case "PUT" : 
+-        return /* Put */3;
+-    case "TRACE" : 
+-        return /* Trace */7;
+-    default:
+-      return /* Other */[method_$1];
+-  }
+-}
+-
+-function type_(self) {
+-  var e = self.type;
+-  switch (e) {
+-    case "" : 
+-        return /* None */0;
+-    case "audio" : 
+-        return /* Audio */1;
+-    case "font" : 
+-        return /* Font */2;
+-    case "image" : 
+-        return /* Image */3;
+-    case "script" : 
+-        return /* Script */4;
+-    case "style" : 
+-        return /* Style */5;
+-    case "track" : 
+-        return /* Track */6;
+-    case "video" : 
+-        return /* Video */7;
+-    default:
+-      throw [
+-            Caml_builtin_exceptions.failure,
+-            "Unknown requestType: " + e
+-          ];
+-  }
+-}
+-
+-function destination(self) {
+-  var e = self.destination;
+-  switch (e) {
+-    case "" : 
+-        return /* None */0;
+-    case "document" : 
+-        return /* Document */1;
+-    case "embed" : 
+-        return /* Embed */2;
+-    case "font" : 
+-        return /* Font */3;
+-    case "image" : 
+-        return /* Image */4;
+-    case "manifest" : 
+-        return /* Manifest */5;
+-    case "media" : 
+-        return /* Media */6;
+-    case "object" : 
+-        return /* Object */7;
+-    case "report" : 
+-        return /* Report */8;
+-    case "script" : 
+-        return /* Script */9;
+-    case "serviceworker" : 
+-        return /* ServiceWorker */10;
+-    case "sharedworder" : 
+-        return /* SharedWorker */11;
+-    case "style" : 
+-        return /* Style */12;
+-    case "worker" : 
+-        return /* Worker */13;
+-    case "xslt" : 
+-        return /* Xslt */14;
+-    default:
+-      throw [
+-            Caml_builtin_exceptions.failure,
+-            "Unknown requestDestination: " + e
+-          ];
+-  }
+-}
+-
+-function referrerPolicy(self) {
+-  var e = self.referrerPolicy;
+-  switch (e) {
+-    case "" : 
+-        return /* None */0;
+-    case "no-referrer" : 
+-        return /* NoReferrer */1;
+-    case "no-referrer-when-downgrade" : 
+-        return /* NoReferrerWhenDowngrade */2;
+-    case "origin" : 
+-        return /* Origin */4;
+-    case "origin-when-cross-origin" : 
+-        return /* OriginWhenCrossOrigin */6;
+-    case "same-origin" : 
+-        return /* SameOrigin */3;
+-    case "strict-origin" : 
+-        return /* StrictOrigin */5;
+-    case "strict-origin-when-cross-origin" : 
+-        return /* StrictOriginWhenCrossOrigin */7;
+-    case "unsafe-url" : 
+-        return /* UnsafeUrl */8;
+-    default:
+-      throw [
+-            Caml_builtin_exceptions.failure,
+-            "Unknown referrerPolicy: " + e
+-          ];
+-  }
+-}
+-
+-function mode(self) {
+-  var e = self.mode;
+-  switch (e) {
+-    case "cors" : 
+-        return /* CORS */3;
+-    case "navigate" : 
+-        return /* Navigate */0;
+-    case "no-cors" : 
+-        return /* NoCORS */2;
+-    case "same-origin" : 
+-        return /* SameOrigin */1;
+-    default:
+-      throw [
+-            Caml_builtin_exceptions.failure,
+-            "Unknown requestMode: " + e
+-          ];
+-  }
+-}
+-
+-function credentials(self) {
+-  var e = self.credentials;
+-  switch (e) {
+-    case "imclude" : 
+-        return /* Include */2;
+-    case "omit" : 
+-        return /* Omit */0;
+-    case "same-origin" : 
+-        return /* SameOrigin */1;
+-    default:
+-      throw [
+-            Caml_builtin_exceptions.failure,
+-            "Unknown requestCredentials: " + e
+-          ];
+-  }
+-}
+-
+-function cache(self) {
+-  var e = self.cache;
+-  switch (e) {
+-    case "default" : 
+-        return /* Default */0;
+-    case "force-cache" : 
+-        return /* ForceCache */4;
+-    case "no-cache" : 
+-        return /* NoCache */3;
+-    case "no-store" : 
+-        return /* NoStore */1;
+-    case "only-if-cached" : 
+-        return /* OnlyIfCached */5;
+-    case "reload" : 
+-        return /* Reload */2;
+-    default:
+-      throw [
+-            Caml_builtin_exceptions.failure,
+-            "Unknown requestCache: " + e
+-          ];
+-  }
+-}
+-
+-function redirect(self) {
+-  var e = self.redirect;
+-  switch (e) {
+-    case "error" : 
+-        return /* Error */1;
+-    case "follow" : 
+-        return /* Follow */0;
+-    case "manual" : 
+-        return /* Manual */2;
+-    default:
+-      throw [
+-            Caml_builtin_exceptions.failure,
+-            "Unknown requestRedirect: " + e
+-          ];
+-  }
+-}
+-
+-var Request = /* module */[
+-  /* method_ */method_,
+-  /* type_ */type_,
+-  /* destination */destination,
+-  /* referrerPolicy */referrerPolicy,
+-  /* mode */mode,
+-  /* credentials */credentials,
+-  /* cache */cache,
+-  /* redirect */redirect
+-];
+-
+-var Response = /* module */[];
+-
+-var Body = [];
+-
+-var RequestInit = [make];
+-
+-exports.HeadersInit = HeadersInit;
+-exports.Headers = Headers;
+-exports.BodyInit = BodyInit;
+-exports.Body = Body;
+-exports.RequestInit = RequestInit;
+-exports.Request = Request;
+-exports.Response = Response;
+-/* No side effect */
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/.compiler.log b/node_modules/bs-node-fetch/lib/ocaml/.compiler.log
+new file mode 100644
+index 0000000..ef41d59
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/ocaml/.compiler.log
+@@ -0,0 +1,2 @@
++#Start(1610139516699)
++#Done(1610139516764)
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/.ninja_log b/node_modules/bs-node-fetch/lib/ocaml/.ninja_log
+new file mode 100644
+index 0000000..a988193
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/ocaml/.ninja_log
+@@ -0,0 +1,8 @@
++# ninja log v6
++0	28	1610139516726177469	BsNodeFetch.cmi	2c55c6b27a9cda75
++8	36	1610139516732969454	BsNodeFetch.cmt	4379dee826131f15
++2	44	1610139516734125427	BsNodeFetch.cmj	1e933215f3136bbc
++11	47	1610139516743613863	BsNodeFetch.re	9fc29f0ccc84af0f
++15	47	1610139516744364015	BsNodeFetch.rei	6e18763338a36a61
++18	49	1610139516747976739	BsNodeFetch.cmti	454909ead4164648
++44	65	1610139516763794916	install.stamp	cff5a5b4c02d30cf
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmi b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmi
+new file mode 100644
+index 0000000..c05d160
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmi differ
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmj b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmj
+new file mode 100644
+index 0000000..f328c4c
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmj differ
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmt b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmt
+new file mode 100644
+index 0000000..90aaa37
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmt differ
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmti b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmti
+new file mode 100644
+index 0000000..9c41e6c
+Binary files /dev/null and b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.cmti differ
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.re b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.re
+new file mode 100644
+index 0000000..c6f180d
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.re
+@@ -0,0 +1,426 @@
++type body;
++
++type bodyInit;
++
++type headers;
++
++type headersInit;
++
++type response;
++
++type request;
++
++type requestInit;
++
++/* external */
++type arrayBuffer; /* TypedArray */
++
++type blob; /* FileAPI */
++
++type bufferSource; /* Web IDL, either an arrayBuffer or arrayBufferView */
++
++type formData; /* XMLHttpRequest */
++
++type readableStream; /* Streams */
++
++type urlSearchParams; /* URL */
++
++type requestMethod =
++  | Get
++  | Head
++  | Post
++  | Put
++  | Delete
++  | Connect
++  | Options
++  | Trace
++  | Patch
++  | Other(string);
++
++let encodeRequestMethod =
++  /* internal */
++  fun
++  | Get => "GET"
++  | Head => "HEAD"
++  | Post => "POST"
++  | Put => "PUT"
++  | Delete => "DELETE"
++  | Connect => "CONNECT"
++  | Options => "OPTIONS"
++  | Trace => "TRACE"
++  | Patch => "PATCH"
++  | Other(method) => method;
++
++let decodeRequestMethod =
++  /* internal */
++  fun
++  | "GET" => Get
++  | "HEAD" => Head
++  | "POST" => Post
++  | "PUT" => Put
++  | "DELETE" => Delete
++  | "CONNECT" => Connect
++  | "OPTIONS" => Options
++  | "TRACE" => Trace
++  | "PATCH" => Patch
++  | method => Other(method);
++
++type referrerPolicy =
++  | None
++  | NoReferrer
++  | NoReferrerWhenDowngrade
++  | SameOrigin
++  | Origin
++  | StrictOrigin
++  | OriginWhenCrossOrigin
++  | StrictOriginWhenCrossOrigin
++  | UnsafeUrl;
++
++let encodeReferrerPolicy =
++  /* internal */
++  fun
++  | None => ""
++  | NoReferrer => "no-referrer"
++  | NoReferrerWhenDowngrade => "no-referrer-when-downgrade"
++  | SameOrigin => "same-origin"
++  | Origin => "origin"
++  | StrictOrigin => "strict-origin"
++  | OriginWhenCrossOrigin => "origin-when-cross-origin"
++  | StrictOriginWhenCrossOrigin => "strict-origin-when-cross-origin"
++  | UnsafeUrl => "unsafe-url";
++
++let decodeReferrerPolicy =
++  /* internal */
++  fun
++  | "" => None
++  | "no-referrer" => NoReferrer
++  | "no-referrer-when-downgrade" => NoReferrerWhenDowngrade
++  | "same-origin" => SameOrigin
++  | "origin" => Origin
++  | "strict-origin" => StrictOrigin
++  | "origin-when-cross-origin" => OriginWhenCrossOrigin
++  | "strict-origin-when-cross-origin" => StrictOriginWhenCrossOrigin
++  | "unsafe-url" => UnsafeUrl
++  | e => raise(Failure("Unknown referrerPolicy: " ++ e));
++
++type requestType =
++  | None /* default? unknown? just empty string in spec */
++  | Audio
++  | Font
++  | Image
++  | Script
++  | Style
++  | Track
++  | Video;
++
++let decodeRequestType =
++  /* internal */
++  fun
++  | "" => None
++  | "audio" => Audio
++  | "font" => Font
++  | "image" => Image
++  | "script" => Script
++  | "style" => Style
++  | "track" => Track
++  | "video" => Video
++  | e => raise(Failure("Unknown requestType: " ++ e));
++
++type requestDestination =
++  | None /* default? unknown? just empty string in spec */
++  | Document
++  | Embed
++  | Font
++  | Image
++  | Manifest
++  | Media
++  | Object
++  | Report
++  | Script
++  | ServiceWorker
++  | SharedWorker
++  | Style
++  | Worker
++  | Xslt;
++
++let decodeRequestDestination =
++  /* internal */
++  fun
++  | "" => None
++  | "document" => Document
++  | "embed" => Embed
++  | "font" => Font
++  | "image" => Image
++  | "manifest" => Manifest
++  | "media" => Media
++  | "object" => Object
++  | "report" => Report
++  | "script" => Script
++  | "serviceworker" => ServiceWorker
++  | "sharedworder" => SharedWorker
++  | "style" => Style
++  | "worker" => Worker
++  | "xslt" => Xslt
++  | e => raise(Failure("Unknown requestDestination: " ++ e));
++
++type requestMode =
++  | Navigate
++  | SameOrigin
++  | NoCORS
++  | CORS;
++
++let encodeRequestMode =
++  /* internal */
++  fun
++  | Navigate => "navigate"
++  | SameOrigin => "same-origin"
++  | NoCORS => "no-cors"
++  | CORS => "cors";
++
++let decodeRequestMode =
++  /* interna  */
++  fun
++  | "navigate" => Navigate
++  | "same-origin" => SameOrigin
++  | "no-cors" => NoCORS
++  | "cors" => CORS
++  | e => raise(Failure("Unknown requestMode: " ++ e));
++
++type requestCredentials =
++  | Omit
++  | SameOrigin
++  | Include;
++
++let encodeRequestCredentials =
++  /* internal */
++  fun
++  | Omit => "omit"
++  | SameOrigin => "same-origin"
++  | Include => "include";
++
++let decodeRequestCredentials =
++  /* internal */
++  fun
++  | "omit" => Omit
++  | "same-origin" => SameOrigin
++  | "imclude" => Include
++  | e => raise(Failure("Unknown requestCredentials: " ++ e));
++
++type requestCache =
++  | Default
++  | NoStore
++  | Reload
++  | NoCache
++  | ForceCache
++  | OnlyIfCached;
++
++let encodeRequestCache =
++  /* internal */
++  fun
++  | Default => "default"
++  | NoStore => "no-store"
++  | Reload => "reload"
++  | NoCache => "no-cache"
++  | ForceCache => "force-cache"
++  | OnlyIfCached => "only-if-cached";
++
++let decodeRequestCache =
++  /* internal */
++  fun
++  | "default" => Default
++  | "no-store" => NoStore
++  | "reload" => Reload
++  | "no-cache" => NoCache
++  | "force-cache" => ForceCache
++  | "only-if-cached" => OnlyIfCached
++  | e => raise(Failure("Unknown requestCache: " ++ e));
++
++type requestRedirect =
++  | Follow
++  | Error
++  | Manual;
++
++let encodeRequestRedirect =
++  /* internal */
++  fun
++  | Follow => "follow"
++  | Error => "error"
++  | Manual => "manual";
++
++let decodeRequestRedirect =
++  /* internal */
++  fun
++  | "follow" => Follow
++  | "error" => Error
++  | "manual" => Manual
++  | e => raise(Failure("Unknown requestRedirect: " ++ e));
++
++module HeadersInit = {
++  type t = headersInit;
++  external make : Js.t({..}) => t = "%identity";
++  external makeWithArray : array((string, string)) => t = "%identity";
++};
++
++module Headers = {
++  type t = headers;
++  [@bs.new] external make : t = "Headers";
++  [@bs.new] external makeWithInit : headersInit => t = "Headers";
++  [@bs.send.pipe : t] external append : string => string = "";
++  [@bs.send.pipe : t] external delete : string = "" /* very experimental */; /* entries */
++  [@bs.send.pipe : t] [@bs.return {null_to_opt: null_to_opt}]
++  external get : string => option(string) = "";
++  [@bs.send.pipe : t] external has : string => bool = "" /* very experimental */; /* keys */
++  [@bs.send.pipe : t] external set : (string, string) => unit = "" /* very experimental */; /* values */
++};
++
++module BodyInit = {
++  type t = bodyInit;
++  external make : string => t = "%identity";
++  external makeWithBlob : blob => t = "%identity";
++  external makeWithBufferSource : bufferSource => t = "%identity";
++  external makeWithFormData : formData => t = "%identity";
++  external makeWithUrlSearchParams : urlSearchParams => t = "%identity";
++};
++
++module Body = {
++  module Impl = (T: {type t;}) => {
++    [@bs.get] external body : T.t => readableStream = "";
++    [@bs.get] external bodyUsed : T.t => bool = "";
++    [@bs.send.pipe : T.t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
++    [@bs.send.pipe : T.t] external blob : Js.Promise.t(blob) = "";
++    [@bs.send.pipe : T.t] external formData : Js.Promise.t(formData) = "";
++    [@bs.send.pipe : T.t] external json : Js.Promise.t(Js.Json.t) = "";
++    [@bs.send.pipe : T.t] external text : Js.Promise.t(string) = "";
++  };
++  type t = body;
++  include
++    Impl(
++      {
++        type nonrec t = t;
++      }
++    );
++};
++
++module RequestInit = {
++  type t = requestInit;
++  let map = (f) =>
++    fun /* internal */
++    | Some(v) => Some(f(v))
++    | None => None;
++  [@bs.obj]
++  external make :
++    (
++      ~_method: string=?,
++      ~headers: headersInit=?,
++      ~body: bodyInit=?,
++      ~referrer: string=?,
++      ~referrerPolicy: string=?,
++      ~mode: string=?,
++      ~credentials: string=?,
++      ~cache: string=?,
++      ~redirect: string=?,
++      ~integrity: string=?,
++      ~keepalive: bool=?,
++      ~timeout: int=?,
++      unit
++    ) =>
++    requestInit =
++    "";
++  let make =
++      (
++        ~method_ as method: option(requestMethod)=?,
++        ~headers: option(headersInit)=?,
++        ~body: option(bodyInit)=?,
++        ~referrer: option(string)=?,
++        ~referrerPolicy: referrerPolicy=None,
++        ~mode: option(requestMode)=?,
++        ~credentials: option(requestCredentials)=?,
++        ~cache: option(requestCache)=?,
++        ~redirect: option(requestRedirect)=?,
++        ~integrity: string="",
++        ~keepalive: option(bool)=?,
++        ~timeout: option(int)=?
++      ) =>
++    make(
++      ~_method=?map(encodeRequestMethod, method),
++      ~headers?,
++      ~body?,
++      ~referrer?,
++      ~referrerPolicy=encodeReferrerPolicy(referrerPolicy),
++      ~mode=?map(encodeRequestMode, mode),
++      ~credentials=?map(encodeRequestCredentials, credentials),
++      ~cache=?map(encodeRequestCache, cache),
++      ~redirect=?map(encodeRequestRedirect, redirect),
++      ~integrity,
++      ~keepalive?,
++      ~timeout?
++    );
++};
++
++module Request = {
++  type t = request;
++  include
++    Body.Impl(
++      {
++        type nonrec t = t;
++      }
++    );
++  [@bs.new] external make : string => t = "Request";
++  [@bs.new] external makeWithInit : (string, requestInit) => t = "Request";
++  [@bs.new] external makeWithRequest : t => t = "Request";
++  [@bs.new] external makeWithRequestInit : (t, requestInit) => t = "Request";
++  [@bs.get] external method_ : t => string = "method";
++  let method: t => requestMethod = (self) => decodeRequestMethod(method_(self));
++  [@bs.get] external url : t => string = "";
++  [@bs.get] external headers : t => headers = "";
++  [@bs.get] external type_ : t => string = "type";
++  let type_: t => requestType = (self) => decodeRequestType(type_(self));
++  [@bs.get] external destination : t => string = "";
++  let destination: t => requestDestination = (self) => decodeRequestDestination(destination(self));
++  [@bs.get] external referrer : t => string = "";
++  [@bs.get] external referrerPolicy : t => string = "";
++  let referrerPolicy: t => referrerPolicy = (self) => decodeReferrerPolicy(referrerPolicy(self));
++  [@bs.get] external mode : t => string = "";
++  let mode: t => requestMode = (self) => decodeRequestMode(mode(self));
++  [@bs.get] external credentials : t => string = "";
++  let credentials: t => requestCredentials = (self) => decodeRequestCredentials(credentials(self));
++  [@bs.get] external cache : t => string = "";
++  let cache: t => requestCache = (self) => decodeRequestCache(cache(self));
++  [@bs.get] external redirect : t => string = "";
++  let redirect: t => requestRedirect = (self) => decodeRequestRedirect(redirect(self));
++  [@bs.get] external integrity : t => string = "";
++  [@bs.get] external keepalive : t => bool = "";
++  [@bs.get] external timeout : t => int = "";
++};
++
++module Response = {
++  type t = response;
++  include
++    Body.Impl(
++      {
++        type nonrec t = t;
++      }
++    );
++  [@bs.val] external error : unit => t = "";
++  [@bs.val] external redirect : string => t = "";
++  [@bs.val] external redirectWithStatus : (string, int /* enum-ish */) => t = "redirect";
++  [@bs.get] external headers : t => headers = "";
++  [@bs.get] external ok : t => bool = "";
++  [@bs.get] external redirected : t => bool = "";
++  [@bs.get] external status : t => int = "";
++  [@bs.get] external statusText : t => string = "";
++  [@bs.get] external _type : t => string = "";
++  [@bs.get] external url : t => string = "";
++  [@bs.send.pipe : t] external clone : t = "";
++};
++
++[@bs.module "node-fetch"] external fetch : string => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithInit : (string, requestInit) => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithRequest : request => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithRequestInit : (request, requestInit) => Js.Promise.t(response) = "default";
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.rei b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.rei
+new file mode 100644
+index 0000000..b487249
+--- /dev/null
++++ b/node_modules/bs-node-fetch/lib/ocaml/BsNodeFetch.rei
+@@ -0,0 +1,223 @@
++type body;
++
++type bodyInit;
++
++type headers;
++
++type headersInit;
++
++type response;
++
++type request;
++
++type requestInit;
++
++/* external */
++type arrayBuffer; /* TypedArray */
++
++type blob; /* FileAPI */
++
++type bufferSource; /* Web IDL, either an arrayBuffer or arrayBufferView */
++
++type formData; /* XMLHttpRequest */
++
++type readableStream; /* Streams */
++
++type urlSearchParams; /* URL */
++
++type requestMethod =
++  | Get
++  | Head
++  | Post
++  | Put
++  | Delete
++  | Connect
++  | Options
++  | Trace
++  | Patch
++  | Other(string);
++
++type referrerPolicy =
++  | None
++  | NoReferrer
++  | NoReferrerWhenDowngrade
++  | SameOrigin
++  | Origin
++  | StrictOrigin
++  | OriginWhenCrossOrigin
++  | StrictOriginWhenCrossOrigin
++  | UnsafeUrl;
++
++type requestType =
++  | None /* default? unknown? just empty string in spec */
++  | Audio
++  | Font
++  | Image
++  | Script
++  | Style
++  | Track
++  | Video;
++
++type requestDestination =
++  | None /* default? unknown? just empty string in spec */
++  | Document
++  | Embed
++  | Font
++  | Image
++  | Manifest
++  | Media
++  | Object
++  | Report
++  | Script
++  | ServiceWorker
++  | SharedWorker
++  | Style
++  | Worker
++  | Xslt;
++
++type requestMode =
++  | Navigate
++  | SameOrigin
++  | NoCORS
++  | CORS;
++
++type requestCredentials =
++  | Omit
++  | SameOrigin
++  | Include;
++
++type requestCache =
++  | Default
++  | NoStore
++  | Reload
++  | NoCache
++  | ForceCache
++  | OnlyIfCached;
++
++type requestRedirect =
++  | Follow
++  | Error
++  | Manual;
++
++module HeadersInit: {
++  type t = headersInit;
++  external make : Js.t({..}) => t = "%identity";
++  external makeWithArray : array((string, string)) => t = "%identity";
++};
++
++module Headers: {
++  type t = headers;
++  [@bs.new] external make : t = "Headers";
++  [@bs.new] external makeWithInit : headersInit => t = "Headers";
++  [@bs.send.pipe : t] external append : string => string = "";
++  [@bs.send.pipe : t] external delete : string = "" /* very experimental */; /* entries */
++  [@bs.send.pipe : t] [@bs.return {null_to_opt: null_to_opt}]
++  external get : string => option(string) = "";
++  [@bs.send.pipe : t] external has : string => bool = "" /* very experimental */; /* keys */
++  [@bs.send.pipe : t] external set : (string, string) => unit = "" /* very experimental */; /* values */
++};
++
++module BodyInit: {
++  type t = bodyInit;
++  external make : string => t = "%identity";
++  external makeWithBlob : blob => t = "%identity";
++  external makeWithBufferSource : bufferSource => t = "%identity";
++  external makeWithFormData : formData => t = "%identity";
++  external makeWithUrlSearchParams : urlSearchParams => t = "%identity";
++};
++
++module Body: {
++  type t = body;
++  [@bs.get] external body : t => readableStream = "";
++  [@bs.get] external bodyUsed : t => bool = "";
++  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
++  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
++  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
++  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
++  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
++};
++
++module RequestInit: {
++  type t = requestInit;
++  let make:
++    (
++      ~method_: requestMethod=?,
++      ~headers: headersInit=?,
++      ~body: bodyInit=?,
++      ~referrer: string=?,
++      ~referrerPolicy: referrerPolicy=?,
++      ~mode: requestMode=?,
++      ~credentials: requestCredentials=?,
++      ~cache: requestCache=?,
++      ~redirect: requestRedirect=?,
++      ~integrity: string=?,
++      ~keepalive: bool=?,
++      ~timeout: int=?,
++      unit
++    ) =>
++    t;
++};
++
++module Request: {
++  type t = request;
++  [@bs.new] external make : string => t = "Request";
++  [@bs.new] external makeWithInit : (string, requestInit) => t = "Request";
++  [@bs.new] external makeWithRequest : t => t = "Request";
++  [@bs.new] external makeWithRequestInit : (t, requestInit) => t = "Request";
++  let method: t => requestMethod;
++  [@bs.get] external url : t => string = "";
++  [@bs.get] external headers : t => headers = "";
++  let type_: t => requestType;
++  let destination: t => requestDestination;
++  [@bs.get] external referrer : t => string = "";
++  let referrerPolicy: t => referrerPolicy;
++  let mode: t => requestMode;
++  let credentials: t => requestCredentials;
++  let cache: t => requestCache;
++  let redirect: t => requestRedirect;
++  [@bs.get] external integrity : t => string = "";
++  [@bs.get] external keepalive : t => bool = "";
++  [@bs.get] external timeout : t => int = "";
++  /* Body Impl */
++  [@bs.get] external body : t => readableStream = "";
++  [@bs.get] external bodyUsed : t => bool = "";
++  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
++  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
++  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
++  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
++  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
++};
++
++module Response: {
++  type t = response;
++  [@bs.val] external error : unit => t = "";
++  [@bs.val] external redirect : string => t = "";
++  [@bs.val] external redirectWithStatus : (string, int /* enum-ish */) => t = "redirect";
++  [@bs.get] external headers : t => headers = "";
++  [@bs.get] external ok : t => bool = "";
++  [@bs.get] external redirected : t => bool = "";
++  [@bs.get] external status : t => int = "";
++  [@bs.get] external statusText : t => string = "";
++  [@bs.get] external _type : t => string = "";
++  [@bs.get] external url : t => string = "";
++  [@bs.send.pipe : t] external clone : t = "";
++  /* Body.Impl */
++  [@bs.get] external body : t => readableStream = "";
++  [@bs.get] external bodyUsed : t => bool = "";
++  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
++  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
++  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
++  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
++  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
++};
++
++[@bs.module "node-fetch"] external fetch : string => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithInit : (string, requestInit) => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithRequest : request => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithRequestInit : (request, requestInit) => Js.Promise.t(response) = "default";
+diff --git a/node_modules/bs-node-fetch/lib/ocaml/install.stamp b/node_modules/bs-node-fetch/lib/ocaml/install.stamp
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/bs-node-fetch/src/BsNodeFetch.bs.js b/node_modules/bs-node-fetch/src/BsNodeFetch.bs.js
+new file mode 100644
+index 0000000..25c0d06
+--- /dev/null
++++ b/node_modules/bs-node-fetch/src/BsNodeFetch.bs.js
+@@ -0,0 +1,412 @@
++'use strict';
++
++var Curry = require("bs-platform/lib/js/curry.js");
++var Caml_option = require("bs-platform/lib/js/caml_option.js");
++
++function encodeRequestMethod(method_) {
++  if (typeof method_ !== "number") {
++    return method_._0;
++  }
++  switch (method_) {
++    case /* Get */0 :
++        return "GET";
++    case /* Head */1 :
++        return "HEAD";
++    case /* Post */2 :
++        return "POST";
++    case /* Put */3 :
++        return "PUT";
++    case /* Delete */4 :
++        return "DELETE";
++    case /* Connect */5 :
++        return "CONNECT";
++    case /* Options */6 :
++        return "OPTIONS";
++    case /* Trace */7 :
++        return "TRACE";
++    case /* Patch */8 :
++        return "PATCH";
++    
++  }
++}
++
++function encodeReferrerPolicy(param) {
++  switch (param) {
++    case /* None */0 :
++        return "";
++    case /* NoReferrer */1 :
++        return "no-referrer";
++    case /* NoReferrerWhenDowngrade */2 :
++        return "no-referrer-when-downgrade";
++    case /* SameOrigin */3 :
++        return "same-origin";
++    case /* Origin */4 :
++        return "origin";
++    case /* StrictOrigin */5 :
++        return "strict-origin";
++    case /* OriginWhenCrossOrigin */6 :
++        return "origin-when-cross-origin";
++    case /* StrictOriginWhenCrossOrigin */7 :
++        return "strict-origin-when-cross-origin";
++    case /* UnsafeUrl */8 :
++        return "unsafe-url";
++    
++  }
++}
++
++function encodeRequestMode(param) {
++  switch (param) {
++    case /* Navigate */0 :
++        return "navigate";
++    case /* SameOrigin */1 :
++        return "same-origin";
++    case /* NoCORS */2 :
++        return "no-cors";
++    case /* CORS */3 :
++        return "cors";
++    
++  }
++}
++
++function encodeRequestCredentials(param) {
++  switch (param) {
++    case /* Omit */0 :
++        return "omit";
++    case /* SameOrigin */1 :
++        return "same-origin";
++    case /* Include */2 :
++        return "include";
++    
++  }
++}
++
++function encodeRequestCache(param) {
++  switch (param) {
++    case /* Default */0 :
++        return "default";
++    case /* NoStore */1 :
++        return "no-store";
++    case /* Reload */2 :
++        return "reload";
++    case /* NoCache */3 :
++        return "no-cache";
++    case /* ForceCache */4 :
++        return "force-cache";
++    case /* OnlyIfCached */5 :
++        return "only-if-cached";
++    
++  }
++}
++
++function encodeRequestRedirect(param) {
++  switch (param) {
++    case /* Follow */0 :
++        return "follow";
++    case /* Error */1 :
++        return "error";
++    case /* Manual */2 :
++        return "manual";
++    
++  }
++}
++
++var HeadersInit = {};
++
++var $$Headers = {};
++
++var BodyInit = {};
++
++function map(f, v) {
++  if (v !== undefined) {
++    return Caml_option.some(Curry._1(f, Caml_option.valFromOption(v)));
++  }
++  
++}
++
++function make(method_, headers, body, referrer, referrerPolicyOpt, mode, credentials, cache, redirect, integrityOpt, keepalive, timeout) {
++  var referrerPolicy = referrerPolicyOpt !== undefined ? referrerPolicyOpt : /* None */0;
++  var integrity = integrityOpt !== undefined ? integrityOpt : "";
++  var partial_arg = integrity;
++  var partial_arg$1 = map(encodeRequestRedirect, redirect);
++  var partial_arg$2 = map(encodeRequestCache, cache);
++  var partial_arg$3 = map(encodeRequestCredentials, credentials);
++  var partial_arg$4 = map(encodeRequestMode, mode);
++  var partial_arg$5 = encodeReferrerPolicy(referrerPolicy);
++  var partial_arg$6 = map(encodeRequestMethod, method_);
++  return function (param) {
++    var tmp = {};
++    if (partial_arg$6 !== undefined) {
++      tmp.method = Caml_option.valFromOption(partial_arg$6);
++    }
++    if (headers !== undefined) {
++      tmp.headers = Caml_option.valFromOption(headers);
++    }
++    if (body !== undefined) {
++      tmp.body = Caml_option.valFromOption(body);
++    }
++    if (referrer !== undefined) {
++      tmp.referrer = Caml_option.valFromOption(referrer);
++    }
++    if (partial_arg$5 !== undefined) {
++      tmp.referrerPolicy = Caml_option.valFromOption(partial_arg$5);
++    }
++    if (partial_arg$4 !== undefined) {
++      tmp.mode = Caml_option.valFromOption(partial_arg$4);
++    }
++    if (partial_arg$3 !== undefined) {
++      tmp.credentials = Caml_option.valFromOption(partial_arg$3);
++    }
++    if (partial_arg$2 !== undefined) {
++      tmp.cache = Caml_option.valFromOption(partial_arg$2);
++    }
++    if (partial_arg$1 !== undefined) {
++      tmp.redirect = Caml_option.valFromOption(partial_arg$1);
++    }
++    if (partial_arg !== undefined) {
++      tmp.integrity = Caml_option.valFromOption(partial_arg);
++    }
++    if (keepalive !== undefined) {
++      tmp.keepalive = Caml_option.valFromOption(keepalive);
++    }
++    if (timeout !== undefined) {
++      tmp.timeout = Caml_option.valFromOption(timeout);
++    }
++    return tmp;
++  };
++}
++
++function method_(self) {
++  var method_$1 = self.method;
++  switch (method_$1) {
++    case "CONNECT" :
++        return /* Connect */5;
++    case "DELETE" :
++        return /* Delete */4;
++    case "GET" :
++        return /* Get */0;
++    case "HEAD" :
++        return /* Head */1;
++    case "OPTIONS" :
++        return /* Options */6;
++    case "PATCH" :
++        return /* Patch */8;
++    case "POST" :
++        return /* Post */2;
++    case "PUT" :
++        return /* Put */3;
++    case "TRACE" :
++        return /* Trace */7;
++    default:
++      return /* Other */{
++              _0: method_$1
++            };
++  }
++}
++
++function type_(self) {
++  var e = self.type;
++  switch (e) {
++    case "" :
++        return /* None */0;
++    case "audio" :
++        return /* Audio */1;
++    case "font" :
++        return /* Font */2;
++    case "image" :
++        return /* Image */3;
++    case "script" :
++        return /* Script */4;
++    case "style" :
++        return /* Style */5;
++    case "track" :
++        return /* Track */6;
++    case "video" :
++        return /* Video */7;
++    default:
++      throw {
++            RE_EXN_ID: "Failure",
++            _1: "Unknown requestType: " + e,
++            Error: new Error()
++          };
++  }
++}
++
++function destination(self) {
++  var e = self.destination;
++  switch (e) {
++    case "" :
++        return /* None */0;
++    case "document" :
++        return /* Document */1;
++    case "embed" :
++        return /* Embed */2;
++    case "font" :
++        return /* Font */3;
++    case "image" :
++        return /* Image */4;
++    case "manifest" :
++        return /* Manifest */5;
++    case "media" :
++        return /* Media */6;
++    case "object" :
++        return /* Object */7;
++    case "report" :
++        return /* Report */8;
++    case "script" :
++        return /* Script */9;
++    case "serviceworker" :
++        return /* ServiceWorker */10;
++    case "sharedworder" :
++        return /* SharedWorker */11;
++    case "style" :
++        return /* Style */12;
++    case "worker" :
++        return /* Worker */13;
++    case "xslt" :
++        return /* Xslt */14;
++    default:
++      throw {
++            RE_EXN_ID: "Failure",
++            _1: "Unknown requestDestination: " + e,
++            Error: new Error()
++          };
++  }
++}
++
++function referrerPolicy(self) {
++  var e = self.referrerPolicy;
++  switch (e) {
++    case "" :
++        return /* None */0;
++    case "no-referrer" :
++        return /* NoReferrer */1;
++    case "no-referrer-when-downgrade" :
++        return /* NoReferrerWhenDowngrade */2;
++    case "origin" :
++        return /* Origin */4;
++    case "origin-when-cross-origin" :
++        return /* OriginWhenCrossOrigin */6;
++    case "same-origin" :
++        return /* SameOrigin */3;
++    case "strict-origin" :
++        return /* StrictOrigin */5;
++    case "strict-origin-when-cross-origin" :
++        return /* StrictOriginWhenCrossOrigin */7;
++    case "unsafe-url" :
++        return /* UnsafeUrl */8;
++    default:
++      throw {
++            RE_EXN_ID: "Failure",
++            _1: "Unknown referrerPolicy: " + e,
++            Error: new Error()
++          };
++  }
++}
++
++function mode(self) {
++  var e = self.mode;
++  switch (e) {
++    case "cors" :
++        return /* CORS */3;
++    case "navigate" :
++        return /* Navigate */0;
++    case "no-cors" :
++        return /* NoCORS */2;
++    case "same-origin" :
++        return /* SameOrigin */1;
++    default:
++      throw {
++            RE_EXN_ID: "Failure",
++            _1: "Unknown requestMode: " + e,
++            Error: new Error()
++          };
++  }
++}
++
++function credentials(self) {
++  var e = self.credentials;
++  switch (e) {
++    case "imclude" :
++        return /* Include */2;
++    case "omit" :
++        return /* Omit */0;
++    case "same-origin" :
++        return /* SameOrigin */1;
++    default:
++      throw {
++            RE_EXN_ID: "Failure",
++            _1: "Unknown requestCredentials: " + e,
++            Error: new Error()
++          };
++  }
++}
++
++function cache(self) {
++  var e = self.cache;
++  switch (e) {
++    case "default" :
++        return /* Default */0;
++    case "force-cache" :
++        return /* ForceCache */4;
++    case "no-cache" :
++        return /* NoCache */3;
++    case "no-store" :
++        return /* NoStore */1;
++    case "only-if-cached" :
++        return /* OnlyIfCached */5;
++    case "reload" :
++        return /* Reload */2;
++    default:
++      throw {
++            RE_EXN_ID: "Failure",
++            _1: "Unknown requestCache: " + e,
++            Error: new Error()
++          };
++  }
++}
++
++function redirect(self) {
++  var e = self.redirect;
++  switch (e) {
++    case "error" :
++        return /* Error */1;
++    case "follow" :
++        return /* Follow */0;
++    case "manual" :
++        return /* Manual */2;
++    default:
++      throw {
++            RE_EXN_ID: "Failure",
++            _1: "Unknown requestRedirect: " + e,
++            Error: new Error()
++          };
++  }
++}
++
++var $$Request = {
++  method_: method_,
++  type_: type_,
++  destination: destination,
++  referrerPolicy: referrerPolicy,
++  mode: mode,
++  credentials: credentials,
++  cache: cache,
++  redirect: redirect
++};
++
++var $$Response = {};
++
++var Body = {};
++
++var RequestInit = {
++  make: make
++};
++
++exports.HeadersInit = HeadersInit;
++exports.$$Headers = $$Headers;
++exports.BodyInit = BodyInit;
++exports.Body = Body;
++exports.RequestInit = RequestInit;
++exports.$$Request = $$Request;
++exports.$$Response = $$Response;
++/* No side effect */
+diff --git a/node_modules/bs-node-fetch/src/BsNodeFetch.re b/node_modules/bs-node-fetch/src/BsNodeFetch.re
+new file mode 100644
+index 0000000..c6f180d
+--- /dev/null
++++ b/node_modules/bs-node-fetch/src/BsNodeFetch.re
+@@ -0,0 +1,426 @@
++type body;
++
++type bodyInit;
++
++type headers;
++
++type headersInit;
++
++type response;
++
++type request;
++
++type requestInit;
++
++/* external */
++type arrayBuffer; /* TypedArray */
++
++type blob; /* FileAPI */
++
++type bufferSource; /* Web IDL, either an arrayBuffer or arrayBufferView */
++
++type formData; /* XMLHttpRequest */
++
++type readableStream; /* Streams */
++
++type urlSearchParams; /* URL */
++
++type requestMethod =
++  | Get
++  | Head
++  | Post
++  | Put
++  | Delete
++  | Connect
++  | Options
++  | Trace
++  | Patch
++  | Other(string);
++
++let encodeRequestMethod =
++  /* internal */
++  fun
++  | Get => "GET"
++  | Head => "HEAD"
++  | Post => "POST"
++  | Put => "PUT"
++  | Delete => "DELETE"
++  | Connect => "CONNECT"
++  | Options => "OPTIONS"
++  | Trace => "TRACE"
++  | Patch => "PATCH"
++  | Other(method) => method;
++
++let decodeRequestMethod =
++  /* internal */
++  fun
++  | "GET" => Get
++  | "HEAD" => Head
++  | "POST" => Post
++  | "PUT" => Put
++  | "DELETE" => Delete
++  | "CONNECT" => Connect
++  | "OPTIONS" => Options
++  | "TRACE" => Trace
++  | "PATCH" => Patch
++  | method => Other(method);
++
++type referrerPolicy =
++  | None
++  | NoReferrer
++  | NoReferrerWhenDowngrade
++  | SameOrigin
++  | Origin
++  | StrictOrigin
++  | OriginWhenCrossOrigin
++  | StrictOriginWhenCrossOrigin
++  | UnsafeUrl;
++
++let encodeReferrerPolicy =
++  /* internal */
++  fun
++  | None => ""
++  | NoReferrer => "no-referrer"
++  | NoReferrerWhenDowngrade => "no-referrer-when-downgrade"
++  | SameOrigin => "same-origin"
++  | Origin => "origin"
++  | StrictOrigin => "strict-origin"
++  | OriginWhenCrossOrigin => "origin-when-cross-origin"
++  | StrictOriginWhenCrossOrigin => "strict-origin-when-cross-origin"
++  | UnsafeUrl => "unsafe-url";
++
++let decodeReferrerPolicy =
++  /* internal */
++  fun
++  | "" => None
++  | "no-referrer" => NoReferrer
++  | "no-referrer-when-downgrade" => NoReferrerWhenDowngrade
++  | "same-origin" => SameOrigin
++  | "origin" => Origin
++  | "strict-origin" => StrictOrigin
++  | "origin-when-cross-origin" => OriginWhenCrossOrigin
++  | "strict-origin-when-cross-origin" => StrictOriginWhenCrossOrigin
++  | "unsafe-url" => UnsafeUrl
++  | e => raise(Failure("Unknown referrerPolicy: " ++ e));
++
++type requestType =
++  | None /* default? unknown? just empty string in spec */
++  | Audio
++  | Font
++  | Image
++  | Script
++  | Style
++  | Track
++  | Video;
++
++let decodeRequestType =
++  /* internal */
++  fun
++  | "" => None
++  | "audio" => Audio
++  | "font" => Font
++  | "image" => Image
++  | "script" => Script
++  | "style" => Style
++  | "track" => Track
++  | "video" => Video
++  | e => raise(Failure("Unknown requestType: " ++ e));
++
++type requestDestination =
++  | None /* default? unknown? just empty string in spec */
++  | Document
++  | Embed
++  | Font
++  | Image
++  | Manifest
++  | Media
++  | Object
++  | Report
++  | Script
++  | ServiceWorker
++  | SharedWorker
++  | Style
++  | Worker
++  | Xslt;
++
++let decodeRequestDestination =
++  /* internal */
++  fun
++  | "" => None
++  | "document" => Document
++  | "embed" => Embed
++  | "font" => Font
++  | "image" => Image
++  | "manifest" => Manifest
++  | "media" => Media
++  | "object" => Object
++  | "report" => Report
++  | "script" => Script
++  | "serviceworker" => ServiceWorker
++  | "sharedworder" => SharedWorker
++  | "style" => Style
++  | "worker" => Worker
++  | "xslt" => Xslt
++  | e => raise(Failure("Unknown requestDestination: " ++ e));
++
++type requestMode =
++  | Navigate
++  | SameOrigin
++  | NoCORS
++  | CORS;
++
++let encodeRequestMode =
++  /* internal */
++  fun
++  | Navigate => "navigate"
++  | SameOrigin => "same-origin"
++  | NoCORS => "no-cors"
++  | CORS => "cors";
++
++let decodeRequestMode =
++  /* interna  */
++  fun
++  | "navigate" => Navigate
++  | "same-origin" => SameOrigin
++  | "no-cors" => NoCORS
++  | "cors" => CORS
++  | e => raise(Failure("Unknown requestMode: " ++ e));
++
++type requestCredentials =
++  | Omit
++  | SameOrigin
++  | Include;
++
++let encodeRequestCredentials =
++  /* internal */
++  fun
++  | Omit => "omit"
++  | SameOrigin => "same-origin"
++  | Include => "include";
++
++let decodeRequestCredentials =
++  /* internal */
++  fun
++  | "omit" => Omit
++  | "same-origin" => SameOrigin
++  | "imclude" => Include
++  | e => raise(Failure("Unknown requestCredentials: " ++ e));
++
++type requestCache =
++  | Default
++  | NoStore
++  | Reload
++  | NoCache
++  | ForceCache
++  | OnlyIfCached;
++
++let encodeRequestCache =
++  /* internal */
++  fun
++  | Default => "default"
++  | NoStore => "no-store"
++  | Reload => "reload"
++  | NoCache => "no-cache"
++  | ForceCache => "force-cache"
++  | OnlyIfCached => "only-if-cached";
++
++let decodeRequestCache =
++  /* internal */
++  fun
++  | "default" => Default
++  | "no-store" => NoStore
++  | "reload" => Reload
++  | "no-cache" => NoCache
++  | "force-cache" => ForceCache
++  | "only-if-cached" => OnlyIfCached
++  | e => raise(Failure("Unknown requestCache: " ++ e));
++
++type requestRedirect =
++  | Follow
++  | Error
++  | Manual;
++
++let encodeRequestRedirect =
++  /* internal */
++  fun
++  | Follow => "follow"
++  | Error => "error"
++  | Manual => "manual";
++
++let decodeRequestRedirect =
++  /* internal */
++  fun
++  | "follow" => Follow
++  | "error" => Error
++  | "manual" => Manual
++  | e => raise(Failure("Unknown requestRedirect: " ++ e));
++
++module HeadersInit = {
++  type t = headersInit;
++  external make : Js.t({..}) => t = "%identity";
++  external makeWithArray : array((string, string)) => t = "%identity";
++};
++
++module Headers = {
++  type t = headers;
++  [@bs.new] external make : t = "Headers";
++  [@bs.new] external makeWithInit : headersInit => t = "Headers";
++  [@bs.send.pipe : t] external append : string => string = "";
++  [@bs.send.pipe : t] external delete : string = "" /* very experimental */; /* entries */
++  [@bs.send.pipe : t] [@bs.return {null_to_opt: null_to_opt}]
++  external get : string => option(string) = "";
++  [@bs.send.pipe : t] external has : string => bool = "" /* very experimental */; /* keys */
++  [@bs.send.pipe : t] external set : (string, string) => unit = "" /* very experimental */; /* values */
++};
++
++module BodyInit = {
++  type t = bodyInit;
++  external make : string => t = "%identity";
++  external makeWithBlob : blob => t = "%identity";
++  external makeWithBufferSource : bufferSource => t = "%identity";
++  external makeWithFormData : formData => t = "%identity";
++  external makeWithUrlSearchParams : urlSearchParams => t = "%identity";
++};
++
++module Body = {
++  module Impl = (T: {type t;}) => {
++    [@bs.get] external body : T.t => readableStream = "";
++    [@bs.get] external bodyUsed : T.t => bool = "";
++    [@bs.send.pipe : T.t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
++    [@bs.send.pipe : T.t] external blob : Js.Promise.t(blob) = "";
++    [@bs.send.pipe : T.t] external formData : Js.Promise.t(formData) = "";
++    [@bs.send.pipe : T.t] external json : Js.Promise.t(Js.Json.t) = "";
++    [@bs.send.pipe : T.t] external text : Js.Promise.t(string) = "";
++  };
++  type t = body;
++  include
++    Impl(
++      {
++        type nonrec t = t;
++      }
++    );
++};
++
++module RequestInit = {
++  type t = requestInit;
++  let map = (f) =>
++    fun /* internal */
++    | Some(v) => Some(f(v))
++    | None => None;
++  [@bs.obj]
++  external make :
++    (
++      ~_method: string=?,
++      ~headers: headersInit=?,
++      ~body: bodyInit=?,
++      ~referrer: string=?,
++      ~referrerPolicy: string=?,
++      ~mode: string=?,
++      ~credentials: string=?,
++      ~cache: string=?,
++      ~redirect: string=?,
++      ~integrity: string=?,
++      ~keepalive: bool=?,
++      ~timeout: int=?,
++      unit
++    ) =>
++    requestInit =
++    "";
++  let make =
++      (
++        ~method_ as method: option(requestMethod)=?,
++        ~headers: option(headersInit)=?,
++        ~body: option(bodyInit)=?,
++        ~referrer: option(string)=?,
++        ~referrerPolicy: referrerPolicy=None,
++        ~mode: option(requestMode)=?,
++        ~credentials: option(requestCredentials)=?,
++        ~cache: option(requestCache)=?,
++        ~redirect: option(requestRedirect)=?,
++        ~integrity: string="",
++        ~keepalive: option(bool)=?,
++        ~timeout: option(int)=?
++      ) =>
++    make(
++      ~_method=?map(encodeRequestMethod, method),
++      ~headers?,
++      ~body?,
++      ~referrer?,
++      ~referrerPolicy=encodeReferrerPolicy(referrerPolicy),
++      ~mode=?map(encodeRequestMode, mode),
++      ~credentials=?map(encodeRequestCredentials, credentials),
++      ~cache=?map(encodeRequestCache, cache),
++      ~redirect=?map(encodeRequestRedirect, redirect),
++      ~integrity,
++      ~keepalive?,
++      ~timeout?
++    );
++};
++
++module Request = {
++  type t = request;
++  include
++    Body.Impl(
++      {
++        type nonrec t = t;
++      }
++    );
++  [@bs.new] external make : string => t = "Request";
++  [@bs.new] external makeWithInit : (string, requestInit) => t = "Request";
++  [@bs.new] external makeWithRequest : t => t = "Request";
++  [@bs.new] external makeWithRequestInit : (t, requestInit) => t = "Request";
++  [@bs.get] external method_ : t => string = "method";
++  let method: t => requestMethod = (self) => decodeRequestMethod(method_(self));
++  [@bs.get] external url : t => string = "";
++  [@bs.get] external headers : t => headers = "";
++  [@bs.get] external type_ : t => string = "type";
++  let type_: t => requestType = (self) => decodeRequestType(type_(self));
++  [@bs.get] external destination : t => string = "";
++  let destination: t => requestDestination = (self) => decodeRequestDestination(destination(self));
++  [@bs.get] external referrer : t => string = "";
++  [@bs.get] external referrerPolicy : t => string = "";
++  let referrerPolicy: t => referrerPolicy = (self) => decodeReferrerPolicy(referrerPolicy(self));
++  [@bs.get] external mode : t => string = "";
++  let mode: t => requestMode = (self) => decodeRequestMode(mode(self));
++  [@bs.get] external credentials : t => string = "";
++  let credentials: t => requestCredentials = (self) => decodeRequestCredentials(credentials(self));
++  [@bs.get] external cache : t => string = "";
++  let cache: t => requestCache = (self) => decodeRequestCache(cache(self));
++  [@bs.get] external redirect : t => string = "";
++  let redirect: t => requestRedirect = (self) => decodeRequestRedirect(redirect(self));
++  [@bs.get] external integrity : t => string = "";
++  [@bs.get] external keepalive : t => bool = "";
++  [@bs.get] external timeout : t => int = "";
++};
++
++module Response = {
++  type t = response;
++  include
++    Body.Impl(
++      {
++        type nonrec t = t;
++      }
++    );
++  [@bs.val] external error : unit => t = "";
++  [@bs.val] external redirect : string => t = "";
++  [@bs.val] external redirectWithStatus : (string, int /* enum-ish */) => t = "redirect";
++  [@bs.get] external headers : t => headers = "";
++  [@bs.get] external ok : t => bool = "";
++  [@bs.get] external redirected : t => bool = "";
++  [@bs.get] external status : t => int = "";
++  [@bs.get] external statusText : t => string = "";
++  [@bs.get] external _type : t => string = "";
++  [@bs.get] external url : t => string = "";
++  [@bs.send.pipe : t] external clone : t = "";
++};
++
++[@bs.module "node-fetch"] external fetch : string => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithInit : (string, requestInit) => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithRequest : request => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithRequestInit : (request, requestInit) => Js.Promise.t(response) = "default";
+diff --git a/node_modules/bs-node-fetch/src/BsNodeFetch.rei b/node_modules/bs-node-fetch/src/BsNodeFetch.rei
+new file mode 100644
+index 0000000..b487249
+--- /dev/null
++++ b/node_modules/bs-node-fetch/src/BsNodeFetch.rei
+@@ -0,0 +1,223 @@
++type body;
++
++type bodyInit;
++
++type headers;
++
++type headersInit;
++
++type response;
++
++type request;
++
++type requestInit;
++
++/* external */
++type arrayBuffer; /* TypedArray */
++
++type blob; /* FileAPI */
++
++type bufferSource; /* Web IDL, either an arrayBuffer or arrayBufferView */
++
++type formData; /* XMLHttpRequest */
++
++type readableStream; /* Streams */
++
++type urlSearchParams; /* URL */
++
++type requestMethod =
++  | Get
++  | Head
++  | Post
++  | Put
++  | Delete
++  | Connect
++  | Options
++  | Trace
++  | Patch
++  | Other(string);
++
++type referrerPolicy =
++  | None
++  | NoReferrer
++  | NoReferrerWhenDowngrade
++  | SameOrigin
++  | Origin
++  | StrictOrigin
++  | OriginWhenCrossOrigin
++  | StrictOriginWhenCrossOrigin
++  | UnsafeUrl;
++
++type requestType =
++  | None /* default? unknown? just empty string in spec */
++  | Audio
++  | Font
++  | Image
++  | Script
++  | Style
++  | Track
++  | Video;
++
++type requestDestination =
++  | None /* default? unknown? just empty string in spec */
++  | Document
++  | Embed
++  | Font
++  | Image
++  | Manifest
++  | Media
++  | Object
++  | Report
++  | Script
++  | ServiceWorker
++  | SharedWorker
++  | Style
++  | Worker
++  | Xslt;
++
++type requestMode =
++  | Navigate
++  | SameOrigin
++  | NoCORS
++  | CORS;
++
++type requestCredentials =
++  | Omit
++  | SameOrigin
++  | Include;
++
++type requestCache =
++  | Default
++  | NoStore
++  | Reload
++  | NoCache
++  | ForceCache
++  | OnlyIfCached;
++
++type requestRedirect =
++  | Follow
++  | Error
++  | Manual;
++
++module HeadersInit: {
++  type t = headersInit;
++  external make : Js.t({..}) => t = "%identity";
++  external makeWithArray : array((string, string)) => t = "%identity";
++};
++
++module Headers: {
++  type t = headers;
++  [@bs.new] external make : t = "Headers";
++  [@bs.new] external makeWithInit : headersInit => t = "Headers";
++  [@bs.send.pipe : t] external append : string => string = "";
++  [@bs.send.pipe : t] external delete : string = "" /* very experimental */; /* entries */
++  [@bs.send.pipe : t] [@bs.return {null_to_opt: null_to_opt}]
++  external get : string => option(string) = "";
++  [@bs.send.pipe : t] external has : string => bool = "" /* very experimental */; /* keys */
++  [@bs.send.pipe : t] external set : (string, string) => unit = "" /* very experimental */; /* values */
++};
++
++module BodyInit: {
++  type t = bodyInit;
++  external make : string => t = "%identity";
++  external makeWithBlob : blob => t = "%identity";
++  external makeWithBufferSource : bufferSource => t = "%identity";
++  external makeWithFormData : formData => t = "%identity";
++  external makeWithUrlSearchParams : urlSearchParams => t = "%identity";
++};
++
++module Body: {
++  type t = body;
++  [@bs.get] external body : t => readableStream = "";
++  [@bs.get] external bodyUsed : t => bool = "";
++  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
++  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
++  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
++  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
++  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
++};
++
++module RequestInit: {
++  type t = requestInit;
++  let make:
++    (
++      ~method_: requestMethod=?,
++      ~headers: headersInit=?,
++      ~body: bodyInit=?,
++      ~referrer: string=?,
++      ~referrerPolicy: referrerPolicy=?,
++      ~mode: requestMode=?,
++      ~credentials: requestCredentials=?,
++      ~cache: requestCache=?,
++      ~redirect: requestRedirect=?,
++      ~integrity: string=?,
++      ~keepalive: bool=?,
++      ~timeout: int=?,
++      unit
++    ) =>
++    t;
++};
++
++module Request: {
++  type t = request;
++  [@bs.new] external make : string => t = "Request";
++  [@bs.new] external makeWithInit : (string, requestInit) => t = "Request";
++  [@bs.new] external makeWithRequest : t => t = "Request";
++  [@bs.new] external makeWithRequestInit : (t, requestInit) => t = "Request";
++  let method: t => requestMethod;
++  [@bs.get] external url : t => string = "";
++  [@bs.get] external headers : t => headers = "";
++  let type_: t => requestType;
++  let destination: t => requestDestination;
++  [@bs.get] external referrer : t => string = "";
++  let referrerPolicy: t => referrerPolicy;
++  let mode: t => requestMode;
++  let credentials: t => requestCredentials;
++  let cache: t => requestCache;
++  let redirect: t => requestRedirect;
++  [@bs.get] external integrity : t => string = "";
++  [@bs.get] external keepalive : t => bool = "";
++  [@bs.get] external timeout : t => int = "";
++  /* Body Impl */
++  [@bs.get] external body : t => readableStream = "";
++  [@bs.get] external bodyUsed : t => bool = "";
++  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
++  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
++  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
++  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
++  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
++};
++
++module Response: {
++  type t = response;
++  [@bs.val] external error : unit => t = "";
++  [@bs.val] external redirect : string => t = "";
++  [@bs.val] external redirectWithStatus : (string, int /* enum-ish */) => t = "redirect";
++  [@bs.get] external headers : t => headers = "";
++  [@bs.get] external ok : t => bool = "";
++  [@bs.get] external redirected : t => bool = "";
++  [@bs.get] external status : t => int = "";
++  [@bs.get] external statusText : t => string = "";
++  [@bs.get] external _type : t => string = "";
++  [@bs.get] external url : t => string = "";
++  [@bs.send.pipe : t] external clone : t = "";
++  /* Body.Impl */
++  [@bs.get] external body : t => readableStream = "";
++  [@bs.get] external bodyUsed : t => bool = "";
++  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
++  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
++  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
++  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
++  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
++};
++
++[@bs.module "node-fetch"] external fetch : string => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithInit : (string, requestInit) => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithRequest : request => Js.Promise.t(response) = "default";
++
++[@bs.module "node-fetch"]
++external fetchWithRequestInit : (request, requestInit) => Js.Promise.t(response) = "default";
 diff --git a/node_modules/bs-node-fetch/src/bs_node_fetch.ml b/node_modules/bs-node-fetch/src/bs_node_fetch.ml
 deleted file mode 100644
 index a9190c6..0000000
@@ -657,664 +3014,3 @@ index 8c22199..0000000
 -external fetchWithInit : string -> requestInit -> response Js.Promise.t = "default" [@@bs.module "node-fetch"]
 -external fetchWithRequest : request -> response Js.Promise.t = "default" [@@bs.module "node-fetch"]
 -external fetchWithRequestInit : request -> requestInit -> response Js.Promise.t = "default" [@@bs.module "node-fetch"]
-diff --git a/node_modules/bs-node-fetch/src/bs_node_fetch.re b/node_modules/bs-node-fetch/src/bs_node_fetch.re
-new file mode 100644
-index 0000000..c6f180d
---- /dev/null
-+++ b/node_modules/bs-node-fetch/src/bs_node_fetch.re
-@@ -0,0 +1,426 @@
-+type body;
-+
-+type bodyInit;
-+
-+type headers;
-+
-+type headersInit;
-+
-+type response;
-+
-+type request;
-+
-+type requestInit;
-+
-+/* external */
-+type arrayBuffer; /* TypedArray */
-+
-+type blob; /* FileAPI */
-+
-+type bufferSource; /* Web IDL, either an arrayBuffer or arrayBufferView */
-+
-+type formData; /* XMLHttpRequest */
-+
-+type readableStream; /* Streams */
-+
-+type urlSearchParams; /* URL */
-+
-+type requestMethod =
-+  | Get
-+  | Head
-+  | Post
-+  | Put
-+  | Delete
-+  | Connect
-+  | Options
-+  | Trace
-+  | Patch
-+  | Other(string);
-+
-+let encodeRequestMethod =
-+  /* internal */
-+  fun
-+  | Get => "GET"
-+  | Head => "HEAD"
-+  | Post => "POST"
-+  | Put => "PUT"
-+  | Delete => "DELETE"
-+  | Connect => "CONNECT"
-+  | Options => "OPTIONS"
-+  | Trace => "TRACE"
-+  | Patch => "PATCH"
-+  | Other(method) => method;
-+
-+let decodeRequestMethod =
-+  /* internal */
-+  fun
-+  | "GET" => Get
-+  | "HEAD" => Head
-+  | "POST" => Post
-+  | "PUT" => Put
-+  | "DELETE" => Delete
-+  | "CONNECT" => Connect
-+  | "OPTIONS" => Options
-+  | "TRACE" => Trace
-+  | "PATCH" => Patch
-+  | method => Other(method);
-+
-+type referrerPolicy =
-+  | None
-+  | NoReferrer
-+  | NoReferrerWhenDowngrade
-+  | SameOrigin
-+  | Origin
-+  | StrictOrigin
-+  | OriginWhenCrossOrigin
-+  | StrictOriginWhenCrossOrigin
-+  | UnsafeUrl;
-+
-+let encodeReferrerPolicy =
-+  /* internal */
-+  fun
-+  | None => ""
-+  | NoReferrer => "no-referrer"
-+  | NoReferrerWhenDowngrade => "no-referrer-when-downgrade"
-+  | SameOrigin => "same-origin"
-+  | Origin => "origin"
-+  | StrictOrigin => "strict-origin"
-+  | OriginWhenCrossOrigin => "origin-when-cross-origin"
-+  | StrictOriginWhenCrossOrigin => "strict-origin-when-cross-origin"
-+  | UnsafeUrl => "unsafe-url";
-+
-+let decodeReferrerPolicy =
-+  /* internal */
-+  fun
-+  | "" => None
-+  | "no-referrer" => NoReferrer
-+  | "no-referrer-when-downgrade" => NoReferrerWhenDowngrade
-+  | "same-origin" => SameOrigin
-+  | "origin" => Origin
-+  | "strict-origin" => StrictOrigin
-+  | "origin-when-cross-origin" => OriginWhenCrossOrigin
-+  | "strict-origin-when-cross-origin" => StrictOriginWhenCrossOrigin
-+  | "unsafe-url" => UnsafeUrl
-+  | e => raise(Failure("Unknown referrerPolicy: " ++ e));
-+
-+type requestType =
-+  | None /* default? unknown? just empty string in spec */
-+  | Audio
-+  | Font
-+  | Image
-+  | Script
-+  | Style
-+  | Track
-+  | Video;
-+
-+let decodeRequestType =
-+  /* internal */
-+  fun
-+  | "" => None
-+  | "audio" => Audio
-+  | "font" => Font
-+  | "image" => Image
-+  | "script" => Script
-+  | "style" => Style
-+  | "track" => Track
-+  | "video" => Video
-+  | e => raise(Failure("Unknown requestType: " ++ e));
-+
-+type requestDestination =
-+  | None /* default? unknown? just empty string in spec */
-+  | Document
-+  | Embed
-+  | Font
-+  | Image
-+  | Manifest
-+  | Media
-+  | Object
-+  | Report
-+  | Script
-+  | ServiceWorker
-+  | SharedWorker
-+  | Style
-+  | Worker
-+  | Xslt;
-+
-+let decodeRequestDestination =
-+  /* internal */
-+  fun
-+  | "" => None
-+  | "document" => Document
-+  | "embed" => Embed
-+  | "font" => Font
-+  | "image" => Image
-+  | "manifest" => Manifest
-+  | "media" => Media
-+  | "object" => Object
-+  | "report" => Report
-+  | "script" => Script
-+  | "serviceworker" => ServiceWorker
-+  | "sharedworder" => SharedWorker
-+  | "style" => Style
-+  | "worker" => Worker
-+  | "xslt" => Xslt
-+  | e => raise(Failure("Unknown requestDestination: " ++ e));
-+
-+type requestMode =
-+  | Navigate
-+  | SameOrigin
-+  | NoCORS
-+  | CORS;
-+
-+let encodeRequestMode =
-+  /* internal */
-+  fun
-+  | Navigate => "navigate"
-+  | SameOrigin => "same-origin"
-+  | NoCORS => "no-cors"
-+  | CORS => "cors";
-+
-+let decodeRequestMode =
-+  /* interna  */
-+  fun
-+  | "navigate" => Navigate
-+  | "same-origin" => SameOrigin
-+  | "no-cors" => NoCORS
-+  | "cors" => CORS
-+  | e => raise(Failure("Unknown requestMode: " ++ e));
-+
-+type requestCredentials =
-+  | Omit
-+  | SameOrigin
-+  | Include;
-+
-+let encodeRequestCredentials =
-+  /* internal */
-+  fun
-+  | Omit => "omit"
-+  | SameOrigin => "same-origin"
-+  | Include => "include";
-+
-+let decodeRequestCredentials =
-+  /* internal */
-+  fun
-+  | "omit" => Omit
-+  | "same-origin" => SameOrigin
-+  | "imclude" => Include
-+  | e => raise(Failure("Unknown requestCredentials: " ++ e));
-+
-+type requestCache =
-+  | Default
-+  | NoStore
-+  | Reload
-+  | NoCache
-+  | ForceCache
-+  | OnlyIfCached;
-+
-+let encodeRequestCache =
-+  /* internal */
-+  fun
-+  | Default => "default"
-+  | NoStore => "no-store"
-+  | Reload => "reload"
-+  | NoCache => "no-cache"
-+  | ForceCache => "force-cache"
-+  | OnlyIfCached => "only-if-cached";
-+
-+let decodeRequestCache =
-+  /* internal */
-+  fun
-+  | "default" => Default
-+  | "no-store" => NoStore
-+  | "reload" => Reload
-+  | "no-cache" => NoCache
-+  | "force-cache" => ForceCache
-+  | "only-if-cached" => OnlyIfCached
-+  | e => raise(Failure("Unknown requestCache: " ++ e));
-+
-+type requestRedirect =
-+  | Follow
-+  | Error
-+  | Manual;
-+
-+let encodeRequestRedirect =
-+  /* internal */
-+  fun
-+  | Follow => "follow"
-+  | Error => "error"
-+  | Manual => "manual";
-+
-+let decodeRequestRedirect =
-+  /* internal */
-+  fun
-+  | "follow" => Follow
-+  | "error" => Error
-+  | "manual" => Manual
-+  | e => raise(Failure("Unknown requestRedirect: " ++ e));
-+
-+module HeadersInit = {
-+  type t = headersInit;
-+  external make : Js.t({..}) => t = "%identity";
-+  external makeWithArray : array((string, string)) => t = "%identity";
-+};
-+
-+module Headers = {
-+  type t = headers;
-+  [@bs.new] external make : t = "Headers";
-+  [@bs.new] external makeWithInit : headersInit => t = "Headers";
-+  [@bs.send.pipe : t] external append : string => string = "";
-+  [@bs.send.pipe : t] external delete : string = "" /* very experimental */; /* entries */
-+  [@bs.send.pipe : t] [@bs.return {null_to_opt: null_to_opt}]
-+  external get : string => option(string) = "";
-+  [@bs.send.pipe : t] external has : string => bool = "" /* very experimental */; /* keys */
-+  [@bs.send.pipe : t] external set : (string, string) => unit = "" /* very experimental */; /* values */
-+};
-+
-+module BodyInit = {
-+  type t = bodyInit;
-+  external make : string => t = "%identity";
-+  external makeWithBlob : blob => t = "%identity";
-+  external makeWithBufferSource : bufferSource => t = "%identity";
-+  external makeWithFormData : formData => t = "%identity";
-+  external makeWithUrlSearchParams : urlSearchParams => t = "%identity";
-+};
-+
-+module Body = {
-+  module Impl = (T: {type t;}) => {
-+    [@bs.get] external body : T.t => readableStream = "";
-+    [@bs.get] external bodyUsed : T.t => bool = "";
-+    [@bs.send.pipe : T.t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
-+    [@bs.send.pipe : T.t] external blob : Js.Promise.t(blob) = "";
-+    [@bs.send.pipe : T.t] external formData : Js.Promise.t(formData) = "";
-+    [@bs.send.pipe : T.t] external json : Js.Promise.t(Js.Json.t) = "";
-+    [@bs.send.pipe : T.t] external text : Js.Promise.t(string) = "";
-+  };
-+  type t = body;
-+  include
-+    Impl(
-+      {
-+        type nonrec t = t;
-+      }
-+    );
-+};
-+
-+module RequestInit = {
-+  type t = requestInit;
-+  let map = (f) =>
-+    fun /* internal */
-+    | Some(v) => Some(f(v))
-+    | None => None;
-+  [@bs.obj]
-+  external make :
-+    (
-+      ~_method: string=?,
-+      ~headers: headersInit=?,
-+      ~body: bodyInit=?,
-+      ~referrer: string=?,
-+      ~referrerPolicy: string=?,
-+      ~mode: string=?,
-+      ~credentials: string=?,
-+      ~cache: string=?,
-+      ~redirect: string=?,
-+      ~integrity: string=?,
-+      ~keepalive: bool=?,
-+      ~timeout: int=?,
-+      unit
-+    ) =>
-+    requestInit =
-+    "";
-+  let make =
-+      (
-+        ~method_ as method: option(requestMethod)=?,
-+        ~headers: option(headersInit)=?,
-+        ~body: option(bodyInit)=?,
-+        ~referrer: option(string)=?,
-+        ~referrerPolicy: referrerPolicy=None,
-+        ~mode: option(requestMode)=?,
-+        ~credentials: option(requestCredentials)=?,
-+        ~cache: option(requestCache)=?,
-+        ~redirect: option(requestRedirect)=?,
-+        ~integrity: string="",
-+        ~keepalive: option(bool)=?,
-+        ~timeout: option(int)=?
-+      ) =>
-+    make(
-+      ~_method=?map(encodeRequestMethod, method),
-+      ~headers?,
-+      ~body?,
-+      ~referrer?,
-+      ~referrerPolicy=encodeReferrerPolicy(referrerPolicy),
-+      ~mode=?map(encodeRequestMode, mode),
-+      ~credentials=?map(encodeRequestCredentials, credentials),
-+      ~cache=?map(encodeRequestCache, cache),
-+      ~redirect=?map(encodeRequestRedirect, redirect),
-+      ~integrity,
-+      ~keepalive?,
-+      ~timeout?
-+    );
-+};
-+
-+module Request = {
-+  type t = request;
-+  include
-+    Body.Impl(
-+      {
-+        type nonrec t = t;
-+      }
-+    );
-+  [@bs.new] external make : string => t = "Request";
-+  [@bs.new] external makeWithInit : (string, requestInit) => t = "Request";
-+  [@bs.new] external makeWithRequest : t => t = "Request";
-+  [@bs.new] external makeWithRequestInit : (t, requestInit) => t = "Request";
-+  [@bs.get] external method_ : t => string = "method";
-+  let method: t => requestMethod = (self) => decodeRequestMethod(method_(self));
-+  [@bs.get] external url : t => string = "";
-+  [@bs.get] external headers : t => headers = "";
-+  [@bs.get] external type_ : t => string = "type";
-+  let type_: t => requestType = (self) => decodeRequestType(type_(self));
-+  [@bs.get] external destination : t => string = "";
-+  let destination: t => requestDestination = (self) => decodeRequestDestination(destination(self));
-+  [@bs.get] external referrer : t => string = "";
-+  [@bs.get] external referrerPolicy : t => string = "";
-+  let referrerPolicy: t => referrerPolicy = (self) => decodeReferrerPolicy(referrerPolicy(self));
-+  [@bs.get] external mode : t => string = "";
-+  let mode: t => requestMode = (self) => decodeRequestMode(mode(self));
-+  [@bs.get] external credentials : t => string = "";
-+  let credentials: t => requestCredentials = (self) => decodeRequestCredentials(credentials(self));
-+  [@bs.get] external cache : t => string = "";
-+  let cache: t => requestCache = (self) => decodeRequestCache(cache(self));
-+  [@bs.get] external redirect : t => string = "";
-+  let redirect: t => requestRedirect = (self) => decodeRequestRedirect(redirect(self));
-+  [@bs.get] external integrity : t => string = "";
-+  [@bs.get] external keepalive : t => bool = "";
-+  [@bs.get] external timeout : t => int = "";
-+};
-+
-+module Response = {
-+  type t = response;
-+  include
-+    Body.Impl(
-+      {
-+        type nonrec t = t;
-+      }
-+    );
-+  [@bs.val] external error : unit => t = "";
-+  [@bs.val] external redirect : string => t = "";
-+  [@bs.val] external redirectWithStatus : (string, int /* enum-ish */) => t = "redirect";
-+  [@bs.get] external headers : t => headers = "";
-+  [@bs.get] external ok : t => bool = "";
-+  [@bs.get] external redirected : t => bool = "";
-+  [@bs.get] external status : t => int = "";
-+  [@bs.get] external statusText : t => string = "";
-+  [@bs.get] external _type : t => string = "";
-+  [@bs.get] external url : t => string = "";
-+  [@bs.send.pipe : t] external clone : t = "";
-+};
-+
-+[@bs.module "node-fetch"] external fetch : string => Js.Promise.t(response) = "default";
-+
-+[@bs.module "node-fetch"]
-+external fetchWithInit : (string, requestInit) => Js.Promise.t(response) = "default";
-+
-+[@bs.module "node-fetch"]
-+external fetchWithRequest : request => Js.Promise.t(response) = "default";
-+
-+[@bs.module "node-fetch"]
-+external fetchWithRequestInit : (request, requestInit) => Js.Promise.t(response) = "default";
-diff --git a/node_modules/bs-node-fetch/src/bs_node_fetch.rei b/node_modules/bs-node-fetch/src/bs_node_fetch.rei
-new file mode 100644
-index 0000000..b487249
---- /dev/null
-+++ b/node_modules/bs-node-fetch/src/bs_node_fetch.rei
-@@ -0,0 +1,223 @@
-+type body;
-+
-+type bodyInit;
-+
-+type headers;
-+
-+type headersInit;
-+
-+type response;
-+
-+type request;
-+
-+type requestInit;
-+
-+/* external */
-+type arrayBuffer; /* TypedArray */
-+
-+type blob; /* FileAPI */
-+
-+type bufferSource; /* Web IDL, either an arrayBuffer or arrayBufferView */
-+
-+type formData; /* XMLHttpRequest */
-+
-+type readableStream; /* Streams */
-+
-+type urlSearchParams; /* URL */
-+
-+type requestMethod =
-+  | Get
-+  | Head
-+  | Post
-+  | Put
-+  | Delete
-+  | Connect
-+  | Options
-+  | Trace
-+  | Patch
-+  | Other(string);
-+
-+type referrerPolicy =
-+  | None
-+  | NoReferrer
-+  | NoReferrerWhenDowngrade
-+  | SameOrigin
-+  | Origin
-+  | StrictOrigin
-+  | OriginWhenCrossOrigin
-+  | StrictOriginWhenCrossOrigin
-+  | UnsafeUrl;
-+
-+type requestType =
-+  | None /* default? unknown? just empty string in spec */
-+  | Audio
-+  | Font
-+  | Image
-+  | Script
-+  | Style
-+  | Track
-+  | Video;
-+
-+type requestDestination =
-+  | None /* default? unknown? just empty string in spec */
-+  | Document
-+  | Embed
-+  | Font
-+  | Image
-+  | Manifest
-+  | Media
-+  | Object
-+  | Report
-+  | Script
-+  | ServiceWorker
-+  | SharedWorker
-+  | Style
-+  | Worker
-+  | Xslt;
-+
-+type requestMode =
-+  | Navigate
-+  | SameOrigin
-+  | NoCORS
-+  | CORS;
-+
-+type requestCredentials =
-+  | Omit
-+  | SameOrigin
-+  | Include;
-+
-+type requestCache =
-+  | Default
-+  | NoStore
-+  | Reload
-+  | NoCache
-+  | ForceCache
-+  | OnlyIfCached;
-+
-+type requestRedirect =
-+  | Follow
-+  | Error
-+  | Manual;
-+
-+module HeadersInit: {
-+  type t = headersInit;
-+  external make : Js.t({..}) => t = "%identity";
-+  external makeWithArray : array((string, string)) => t = "%identity";
-+};
-+
-+module Headers: {
-+  type t = headers;
-+  [@bs.new] external make : t = "Headers";
-+  [@bs.new] external makeWithInit : headersInit => t = "Headers";
-+  [@bs.send.pipe : t] external append : string => string = "";
-+  [@bs.send.pipe : t] external delete : string = "" /* very experimental */; /* entries */
-+  [@bs.send.pipe : t] [@bs.return {null_to_opt: null_to_opt}]
-+  external get : string => option(string) = "";
-+  [@bs.send.pipe : t] external has : string => bool = "" /* very experimental */; /* keys */
-+  [@bs.send.pipe : t] external set : (string, string) => unit = "" /* very experimental */; /* values */
-+};
-+
-+module BodyInit: {
-+  type t = bodyInit;
-+  external make : string => t = "%identity";
-+  external makeWithBlob : blob => t = "%identity";
-+  external makeWithBufferSource : bufferSource => t = "%identity";
-+  external makeWithFormData : formData => t = "%identity";
-+  external makeWithUrlSearchParams : urlSearchParams => t = "%identity";
-+};
-+
-+module Body: {
-+  type t = body;
-+  [@bs.get] external body : t => readableStream = "";
-+  [@bs.get] external bodyUsed : t => bool = "";
-+  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
-+  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
-+  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
-+  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
-+  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
-+};
-+
-+module RequestInit: {
-+  type t = requestInit;
-+  let make:
-+    (
-+      ~method_: requestMethod=?,
-+      ~headers: headersInit=?,
-+      ~body: bodyInit=?,
-+      ~referrer: string=?,
-+      ~referrerPolicy: referrerPolicy=?,
-+      ~mode: requestMode=?,
-+      ~credentials: requestCredentials=?,
-+      ~cache: requestCache=?,
-+      ~redirect: requestRedirect=?,
-+      ~integrity: string=?,
-+      ~keepalive: bool=?,
-+      ~timeout: int=?,
-+      unit
-+    ) =>
-+    t;
-+};
-+
-+module Request: {
-+  type t = request;
-+  [@bs.new] external make : string => t = "Request";
-+  [@bs.new] external makeWithInit : (string, requestInit) => t = "Request";
-+  [@bs.new] external makeWithRequest : t => t = "Request";
-+  [@bs.new] external makeWithRequestInit : (t, requestInit) => t = "Request";
-+  let method: t => requestMethod;
-+  [@bs.get] external url : t => string = "";
-+  [@bs.get] external headers : t => headers = "";
-+  let type_: t => requestType;
-+  let destination: t => requestDestination;
-+  [@bs.get] external referrer : t => string = "";
-+  let referrerPolicy: t => referrerPolicy;
-+  let mode: t => requestMode;
-+  let credentials: t => requestCredentials;
-+  let cache: t => requestCache;
-+  let redirect: t => requestRedirect;
-+  [@bs.get] external integrity : t => string = "";
-+  [@bs.get] external keepalive : t => bool = "";
-+  [@bs.get] external timeout : t => int = "";
-+  /* Body Impl */
-+  [@bs.get] external body : t => readableStream = "";
-+  [@bs.get] external bodyUsed : t => bool = "";
-+  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
-+  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
-+  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
-+  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
-+  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
-+};
-+
-+module Response: {
-+  type t = response;
-+  [@bs.val] external error : unit => t = "";
-+  [@bs.val] external redirect : string => t = "";
-+  [@bs.val] external redirectWithStatus : (string, int /* enum-ish */) => t = "redirect";
-+  [@bs.get] external headers : t => headers = "";
-+  [@bs.get] external ok : t => bool = "";
-+  [@bs.get] external redirected : t => bool = "";
-+  [@bs.get] external status : t => int = "";
-+  [@bs.get] external statusText : t => string = "";
-+  [@bs.get] external _type : t => string = "";
-+  [@bs.get] external url : t => string = "";
-+  [@bs.send.pipe : t] external clone : t = "";
-+  /* Body.Impl */
-+  [@bs.get] external body : t => readableStream = "";
-+  [@bs.get] external bodyUsed : t => bool = "";
-+  [@bs.send.pipe : t] external arrayBuffer : Js.Promise.t(arrayBuffer) = "";
-+  [@bs.send.pipe : t] external blob : Js.Promise.t(blob) = "";
-+  [@bs.send.pipe : t] external formData : Js.Promise.t(formData) = "";
-+  [@bs.send.pipe : t] external json : Js.Promise.t(Js.Json.t) = "";
-+  [@bs.send.pipe : t] external text : Js.Promise.t(string) = "";
-+};
-+
-+[@bs.module "node-fetch"] external fetch : string => Js.Promise.t(response) = "default";
-+
-+[@bs.module "node-fetch"]
-+external fetchWithInit : (string, requestInit) => Js.Promise.t(response) = "default";
-+
-+[@bs.module "node-fetch"]
-+external fetchWithRequest : request => Js.Promise.t(response) = "default";
-+
-+[@bs.module "node-fetch"]
-+external fetchWithRequestInit : (request, requestInit) => Js.Promise.t(response) = "default";
